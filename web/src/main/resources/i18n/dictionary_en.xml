@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="bookedMaintenances">Booked services</entry>
+	<entry key="bookedMaintenance.view">View booked services</entry>
+	<entry key="bookedMaintenance.edit">Edit booked services</entry>
+	<entry key="roomNumber">Room number</entry>
+	<entry key="bookedMaintenance.userAccount">Guest</entry>
+	<entry key="maintenance">Service name</entry>
+	<entry key="bookedMaintenance.time">Order's time</entry>
+	<entry key="price">Price</entry>
+	<entry key="save">save</entry>
+	<entry key="back">back</entry>
+	<entry key="id">Id</entry>
+	<entry key="created">Created</entry>
+    <entry key="updated">Updated</entry>
+
+	<entry key="bookings">Bookings</entry>
+	<entry key="booking.view">View booking</entry>
+	<entry key="booking.edit">Edit booking</entry>
+	<entry key="booking.userAccount">Guest</entry>
+	<entry key="booking.persistenceException">This number is unavailable for this dates. Please, change number or change dates</entry>
+	<entry key="optimisticLockException">Row was updated by another transaction (or unsaved-value mapping was incorrect). Please, try one more time with new values</entry>
+	<entry key="booking.newBooking">New booking</entry>
+    <entry key="checkIn">CheckIn</entry>
+	<entry key="checkOut">CheckOut</entry>	
+	<entry key="roomPrice">Room price</entry>	
+	<entry key="bookingStatus">Booking status</entry>
+	<entry key="any">any</entry>
+	<entry key="chooseRoomNumber">choose number</entry>
+	<entry key="chooseEmail">choose guest's Email </entry>	
+	<entry key="chooseBookingStatus">choose booking status</entry>	
+	<entry key="chooseAccomodation">choose accomodation</entry>
+	<entry key="chooseView">choose view</entry>
+	<entry key="priceRange">price range</entry>
+	<entry key="priceMin">minimum price</entry>
+	<entry key="priceMax">maximum price</entry>
+	<entry key="search">search</entry>
+
+	<entry key="myBookings">My bookings</entry>
+
+	<entry key="bookingStatuses">Booking statuses</entry>
+	<entry key="bookingStatus.view">View booking status</entry>
+	<entry key="bookingStatus.edit">Edit booking status</entry>
+	<entry key="bookingStatus.persistenceException">Please, choose another booking status</entry>
+	<entry key="bookingStatus.name">Name</entry>
+	<entry key="bookingStatus.color">Color in chess table</entry>
+
+	<entry key="comments">Comments</entry>
+    <entry key="comment.view">View comment</entry>
+	<entry key="comment.edit">Edit comment</entry>
+	<entry key="comment.userAccount">Author</entry>
+	<entry key="comment">Comment</entry>
+
+	<entry key="employees">Employees</entry>
+	<entry key="employee.view">View employee</entry>
+	<entry key="employee.edit">Edit employee</entry>
+    <entry key="employee.persistenceException">Please, choose another email</entry>
+    <entry key="email">Email</entry>
+    <entry key="password">Password</entry>
+    <entry key="post">Post</entry>
+    <entry key="role">Role</entry>
+    <entry key="firstName">First name</entry>
+    <entry key="lastName">Last name</entry>
+    <entry key="birthday">Birthday</entry>
+    <entry key="address">Address</entry>
+    <entry key="phone">Phone number</entry>
+    <entry key="hiring">Hiring's date</entry>
+    <entry key="layoff">Layoff's date</entry>
+	
+	<entry key="guests">Guests</entry>
+	<entry key="guest.view">View guest</entry>
+	<entry key="guest.edit">Edit guest</entry>
+    <entry key="guest.persistenceException">Please, choose another email</entry>
+ 	<entry key="guest.verifyKey">Verify key</entry>
+	<entry key="guest.isEmailVerified"> Is email verified?</entry>
+	<entry key="guestAccount">Guest</entry>
+	<entry key="guestStatus">Guest status</entry>
+	<entry key="credit">Credit</entry>
+	<entry key="guest.verified">Verified</entry>
+	<entry key="guest">Guest</entry>
+	<entry key="myProfile">My profile</entry>
+	
+	<entry key="guestStatuses">Guest statuses</entry>
+	<entry key="guestStatus.view">View guest status</entry>
+	<entry key="guestStatus.edit">Edit guest status</entry>
+    <entry key="guestStatus.persistenceException">Please, choose another status</entry>
+    <entry key="guestStatus.name">Name</entry>
+    <entry key="guestStatus.discount">Discount</entry>
+	
+	<entry key="maintenances">Services</entry>
+	<entry key="maintenance.view">View service</entry>
+	<entry key="maintenance.edit">Edit service</entry>
+	<entry key="maintenance.name">Name</entry>
+	<entry key="actualPrice">Actual Price</entry>
+	<entry key="maintenance.availability">Availability</entry>
+	<entry key="maintenance.available">available</entry>
+	<entry key="maintenance.unavailable">unavailable</entry>
+	<entry key="all">all</entry>
+	
+    <entry key="messages">Messages</entry>
+	<entry key="message.view">View message</entry>
+	<entry key="message.edit">Edit message</entry>
+	<entry key="message.name">Name</entry>
+	<entry key="message">Message</entry>
+	
+    <entry key="photolinks">Photo links</entry>
+	<entry key="photolink.view">View photolink</entry>
+	<entry key="photolink.edit">Edit photolink</entry>
+	<entry key="photolink.userAccount">Author</entry>
+	<entry key="link">Link</entry>
+	<entry key="photo">Photo</entry>
+
+    <entry key="posts">Posts</entry>
+	<entry key="post.view">View post</entry>
+	<entry key="post.edit">Edit post</entry>
+	<entry key="post.persistenceException">Please, choose another post</entry>
+	<entry key="post.name">Name</entry>
+	<entry key="description">Description</entry>
+	<entry key="post.bigBigBoss">i'm the biggest boss</entry>
+    <entry key="post.supervisor">Supervisor</entry>
+
+    <entry key="registration.newGuest">New guest</entry>
+    <entry key="registration.persistenceException">Please, choose another email</entry>
+	<entry key="registration.signUp">sign up</entry>
+    <entry key="registration.emailHasBeenVerified">Your email has been verified</entry>
+    <entry key="registration.goToLoginPage">Go to login page</entry>
+    <entry key="registration.enterYourKey">Enter key, from e-mail:</entry>
+    <entry key="registration.verifyKey">key</entry>
+    <entry key="registration.invalidKey">Invalid key</entry>
+    <entry key="registration.verifyEmail">verify email</entry>
+    <entry key="registration">Registration</entry>
+
+    <entry key="rooms">Rooms</entry>
+    <entry key="room">Room</entry>
+	<entry key="room.view">View room</entry>
+	<entry key="room.edit">Edit room</entry>
+	<entry key="room.persistenceException">Please, choose another number</entry>
+	<entry key="floor">Floor</entry>
+	<entry key="roomType">Room type</entry>
+	<entry key="accomodation">Accomodation</entry>
+	<entry key="view">View</entry>
+	<entry key="room.dirty">dirty</entry>
+	<entry key="room.clean">clean</entry>
+	<entry key="room.getDirty">Dirty?</entry>
+	<entry key="room.needRepair">need</entry>
+	<entry key="room.dontNeedRepair">don't need</entry>
+	<entry key="room.repair">Need Repair?</entry>
+
+	<entry key="noPhotos">No photos for the room </entry>
+	<entry key="postComment">post comment</entry>
+
+    <entry key="roomSearch">Room search</entry>
+    <entry key="roomSearch.persistenceException">This room is already unavailable for this dates</entry>
+    <entry key="roomSearch.searchByParameters">Search by parameters</entry>
+    <entry key="roomSearch.searchByDescription">Search by description</entry>
+    <entry key="roomSearch.searchByComment">Search by comments</entry>
+    <entry key="roomSearch.moreRoomDetails">More room details</entry>
+    <entry key="roomSearch.noRoomsFound">No rooms found</entry>
+    <entry key="roomSearch.book">book</entry>
+
+    <entry key="tasks">Tasks</entry>
+	<entry key="task.view">View task</entry>
+	<entry key="task.edit">Edit task</entry>
+	<entry key="task.toDo">To do</entry>
+	<entry key="task.executionDate">Execution date</entry>
+    <entry key="task.executionTime">Execution time</entry>
+	<entry key="task.answerable">Answerable</entry>
+    <entry key="task.priority">Priority</entry>
+    <entry key="task.creator">Creator</entry>
+	<entry key="task.notExecuted">not executed</entry>
+    <entry key="task.executed">executed</entry>
+    <entry key="task.status">status</entry>
+    <entry key="task.newTask">new task</entry>
+
+    <entry key="todayTasks">Today tasks</entry>
+    <entry key="noTodayTasks">No active tasks</entry>
+	<entry key="todayTask.open">open</entry>
+	<entry key="todayTask.done">done</entry>
+	<entry key="todayTask.execute">execute</entry>
+	<entry key="todayTask.dirtyRooms">Dirty rooms</entry>
+	<entry key="todayTask.brokenRooms">Rooms to repair</entry>
+
+    <entry key="userAccounts">User accounts</entry>
+	<entry key="userAccount.view">View user account</entry>
+	<entry key="userAccount.edit">Edit user account</entry>
+    <entry key="userAccount.persistenceException">Please, choose another emails</entry>
+
+    <entry key="chess">Chess</entry>
+    <entry key="calendar">Calendar</entry>
+    <entry key="day">Day</entry>
+    <entry key="today">Today</entry>
+    <entry key="period">Period</entry>
+
+    <entry key="contacts">Contacts</entry>
+    <entry key="contacts.streetAddress">M. Gorky street, 1</entry>
+    <entry key="contacts.cityAddress">Grodno, 230023</entry>
+    <entry key="belarus">Republic of Belarus</entry>
+    <entry key="contacts.phone">Phone</entry>
+    <entry key="contacts.yourMessage">Your message</entry>
+    <entry key="send">Send</entry>
+
+    <entry key="gallery">Gallery</entry>
+
+    <entry key="file">File</entry>
+    <entry key="upload">Upload</entry>
+    <entry key="fileUrl">File URl</entry>
+
+    <entry key="login.loginWithEmailAndPassword">Login with email and password</entry>
+    <entry key="logIn">Log in</entry>
+
+    <entry key="header.editProfile">Edit profile</entry>
+    <entry key="header.fileUploading">File uploading</entry>
+    <entry key="header.dbMenu">DB menu</entry>
+    <entry key="logOut">Log out</entry>
+    <entry key="home">Home</entry>
+
+	<entry key="home.page">Home page</entry>
+
+</properties>

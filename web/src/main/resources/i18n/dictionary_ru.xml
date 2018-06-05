@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="bookedMaintenances">Заказанные дополнительные услуги</entry>
+    <entry key="bookedMaintenance.view">Просмотр заказанных дополнительных услуг</entry>
+	<entry key="bookedMaintenance.edit">Редактирование заказанных дополнительных услуг</entry>
+	<entry key="roomNumber">№ номера</entry>
+	<entry key="bookedMaintenance.userAccount">Гость</entry>
+	<entry key="maintenance">Название доп. услуги</entry>
+	<entry key="bookedMaintenance.time">Время заказа</entry>
+	<entry key="price">Цена</entry>
+	<entry key="save">сохранить</entry>
+	<entry key="back">вернуться</entry>
+	<entry key="id">Id</entry>
+    <entry key="created">Создано</entry>
+    <entry key="updated">Обновлено</entry>
+
+    <entry key="bookings">Брони</entry>
+    <entry key="booking.view">Просмотр брони</entry>
+	<entry key="booking.edit">Редактирование брони</entry>
+	<entry key="booking.userAccount">Гость</entry>
+	<entry key="booking.persistenceException">Этот номер недоступен в выбранные даты. Пожалуйста, выберите другой номер или другие даты</entry>
+	<entry key="optimisticLockException">Данные были изменены другим пользователем (или неверное сопоставление сохраняемых значений). Пожалуйста, попробуйте еще раз с новыми значениями</entry>
+	<entry key="booking.newBooking">Новая бронь</entry>
+	<entry key="checkIn">Дата заезда</entry>
+	<entry key="checkOut">Дата отъезда</entry>
+	<entry key="roomPrice">Цена номера</entry>
+	<entry key="bookingStatus">Статус бронирования</entry>
+	<entry key="any">любой</entry>
+	<entry key="chooseRoomNumber">выберите № номера</entry>
+	<entry key="chooseEmail">выберите Email гостя</entry>
+	<entry key="chooseBookingStatus">выберите статус бронирования</entry>
+	<entry key="chooseAccomodation">выберите тип заселения</entry>
+	<entry key="chooseView">выберите вид из окна</entry>
+	<entry key="priceRange">диапазон цен</entry>
+	<entry key="priceMin">минимальная цена</entry>
+	<entry key="priceMax">максимальная цена</entry>
+	<entry key="search">искать</entry>
+
+    <entry key="myBookings">Мои брони</entry>
+
+    <entry key="bookingStatuses">Статусы броней</entry>
+	<entry key="bookingStatus.view">Просмотр статуса брони</entry>
+	<entry key="bookingStatus.edit">Редактирование статуса брони</entry>
+    <entry key="bookingStatus.persistenceException">Пожалуйста, выберите другой статус</entry>
+    <entry key="bookingStatus.name">Название</entry>
+    <entry key="bookingStatus.color">Цвет в шахматке</entry>
+
+    <entry key="comments">Комментарии</entry>
+    <entry key="comment.view">Просмотр комментария</entry>
+	<entry key="comment.edit">Редактирование комментария</entry>
+	<entry key="comment.userAccount">Автор</entry>
+    <entry key="comment">Комментарий</entry>
+
+    <entry key="employees">Сотрудники</entry>
+	<entry key="employee.view">Просмотр сотрудника</entry>
+	<entry key="employee.edit">Редактирование сотрудника</entry>
+    <entry key="employee.persistenceException">Пожалуйста, выберите другой email</entry>
+    <entry key="email">Email</entry>
+    <entry key="password">Пароль</entry>
+    <entry key="post">Должность</entry>
+    <entry key="role">Роль</entry>
+    <entry key="firstName">Имя</entry>
+    <entry key="lastName">Фамилия</entry>
+    <entry key="birthday">День рождения</entry>
+    <entry key="address">Адрес</entry>
+    <entry key="phone">Номер телефона</entry>
+    <entry key="hiring">Дата принятия</entry>
+    <entry key="layoff">Дата увольнения</entry>
+
+    <entry key="guests">Гости</entry>
+	<entry key="guest.view">Просмотр гостя</entry>
+	<entry key="guest.edit">Редактирование гостя</entry>
+    <entry key="guest.persistenceException">Пожалуйста, выберите другой email</entry>
+ 	<entry key="guest.verifyKey">Ключ верификации</entry>
+	<entry key="guest.isEmailVerified">Email подтвержден?</entry>
+	<entry key="guestAccount">Гость</entry>
+	<entry key="guestStatus">Статус гостя</entry>
+	<entry key="credit">Счет</entry>
+    <entry key="guest.verified">Верифицирован</entry>
+    <entry key="guest">Гость</entry>
+    <entry key="myProfile">Мои данные</entry>
+
+    <entry key="guestStatuses">Статусы гостей</entry>
+	<entry key="guestStatus.view">Просмотр статуса гостей</entry>
+	<entry key="guestStatus.edit">Редактирование статуса гостей</entry>
+    <entry key="guestStatus.persistenceException">Пожалуйста, выберите другой статус</entry>
+    <entry key="guestStatus.name">Название</entry>
+    <entry key="guestStatus.discount">Скидка</entry>
+
+    <entry key="maintenances">Дополнительные услуги</entry>
+	<entry key="maintenance.view">Просмотр дополнительной услуги</entry>
+	<entry key="maintenance.edit">Редактирование дополнительной услуги</entry>
+	<entry key="maintenance.name">Название</entry>
+	<entry key="actualPrice">Актуальная цена</entry>
+	<entry key="maintenance.availability">Доступность</entry>
+	<entry key="maintenance.available">доступна</entry>
+	<entry key="maintenance.unavailable">недоступна</entry>
+    <entry key="all">все</entry>
+
+    <entry key="messages">Сообщения</entry>
+	<entry key="message.view">Просмотр сообщения</entry>
+	<entry key="message.edit">Редактирование сообщения</entry>
+	<entry key="message.name">Имя автора</entry>
+	<entry key="message">Сообщение</entry>
+
+    <entry key="photolinks">Ссылки на фотографии</entry>
+	<entry key="photolink.view">Просмотр ссылок</entry>
+	<entry key="photolink.edit">Редактирование ссылок</entry>
+	<entry key="photolink.userAccount">Автор</entry>
+	<entry key="link">Ссылка</entry>
+    <entry key="photo">Фото</entry>
+
+    <entry key="posts">Должности</entry>
+	<entry key="post.view">Просмотр должности</entry>
+	<entry key="post.edit">Редактирование должности</entry>
+	<entry key="post.persistenceException">Пожалуйста, выберите другую должность</entry>
+	<entry key="post.name">Название</entry>
+    <entry key="description">Описание</entry>
+	<entry key="post.bigBigBoss">сам себе начальник</entry>
+    <entry key="post.supervisor">Начальник</entry>
+
+    <entry key="registration.newGuest">Новый гость</entry>
+	<entry key="registration.persistenceException">Пожалуйста, выберите другой email</entry>
+	<entry key="registration.signUp">зарегистрироваться</entry>
+    <entry key="registration.emailHasBeenVerified">Ваш email подтвержден</entry>
+    <entry key="registration.goToLoginPage">Перейти на страницу логина</entry>
+    <entry key="registration.enterYourKey">Введите ключ, отправленный на ваш e-mail:</entry>
+    <entry key="registration.verifyKey">ключ</entry>
+    <entry key="registration.invalidKey">Не верный ключ</entry>
+    <entry key="registration.verifyEmail">подтвердить email</entry>
+    <entry key="registration">Регистрация</entry>
+
+    <entry key="rooms">Номера</entry>
+    <entry key="room">Номер</entry>
+	<entry key="room.view">Просмотр номера</entry>
+	<entry key="room.edit">Редактирование номера</entry>
+	<entry key="room.persistenceException">Пожалуйста, выберите другой №</entry>
+	<entry key="floor">Этаж</entry>
+	<entry key="roomType">Тип номера</entry>
+	<entry key="accomodation">Тип размещения</entry>
+	<entry key="view">Вид из окна</entry>
+	<entry key="room.dirty">грязный</entry>
+	<entry key="room.clean">чистый</entry>
+	<entry key="room.getDirty">Грязный?</entry>
+	<entry key="room.needRepair">нужен</entry>
+	<entry key="room.dontNeedRepair">не нужен</entry>
+	<entry key="room.repair">Ремонт?</entry>
+
+	<entry key="noPhotos">Нет фотографий для номера </entry>
+	<entry key="postComment">оставить комментарий</entry>
+
+    <entry key="roomSearch">Подбор номера</entry>
+    <entry key="roomSearch.persistenceException">Выбранный номер уже недоступен на указанные даты</entry>
+    <entry key="roomSearch.searchByParameters">Поиск по параметрам</entry>
+    <entry key="roomSearch.searchByDescription">Поиск по описанию</entry>
+    <entry key="roomSearch.searchByComment">Поиск по комментариям</entry>
+    <entry key="roomSearch.moreRoomDetails">Подробнее о номере</entry>
+    <entry key="roomSearch.noRoomsFound">Номера не найдены</entry>
+    <entry key="roomSearch.book">забронировать</entry>
+
+    <entry key="tasks">Задания</entry>
+	<entry key="task.view">Просмотр задания</entry>
+	<entry key="task.edit">Редактирование задания</entry>
+	<entry key="task.toDo">Сделать</entry>
+	<entry key="task.executionDate">Дата исполнения</entry>
+    <entry key="task.executionTime">Время исполнения</entry>
+	<entry key="task.answerable">Ответственный</entry>
+    <entry key="task.priority">Приоритет</entry>
+    <entry key="task.creator">Поставивший задание</entry>
+	<entry key="task.notExecuted">не исполнено</entry>
+    <entry key="task.executed">исполнено</entry>
+    <entry key="task.status">статус</entry>
+	<entry key="task.newTask">новое задание</entry>
+
+    <entry key="todayTasks">Задания на сегодня</entry>
+    <entry key="noTodayTasks">Активных заданий нет</entry>
+	<entry key="todayTask.open">Текущие</entry>
+	<entry key="todayTask.done">выполнено</entry>
+	<entry key="todayTask.execute">выполнить</entry>
+	<entry key="todayTask.dirtyRooms">Грязные комнаты</entry>
+	<entry key="todayTask.brokenRooms">Номера для ремонта</entry>
+
+    <entry key="userAccounts">Юзеры</entry>
+	<entry key="userAccount.view">Просмотр юзера</entry>
+	<entry key="userAccount.edit">Редактирование юзера</entry>
+    <entry key="userAccount.persistenceException">Пожалуйста, выберите другой email</entry>
+
+    <entry key="chess">Шахматка</entry>
+    <entry key="calendar">Календарь</entry>
+    <entry key="day">День</entry>
+    <entry key="today">Сегодня</entry>
+    <entry key="period">Период</entry>
+
+    <entry key="contacts">Контакты</entry>
+    <entry key="contacts.streetAddress">ул. М. Горького, 1</entry>
+    <entry key="contacts.cityAddress">230023, г. Гродно</entry>
+    <entry key="belarus">Республика Беларусь</entry>
+    <entry key="contacts.phone">Телефон</entry>
+    <entry key="contacts.yourMessage">Ваше сообщение</entry>
+    <entry key="send">Отправить</entry>
+
+    <entry key="gallery">Галерея</entry>
+
+    <entry key="file">Файл</entry>
+    <entry key="upload">Загрузить</entry>
+    <entry key="fileUrl">Ссылка на файл</entry>
+
+    <entry key="login.loginWithEmailAndPassword">Введите email и пароль</entry>
+    <entry key="logIn">Войти</entry>
+
+    <entry key="header.editProfile">Редактировать профиль</entry>
+    <entry key="header.fileUploading">Загрузка файлов</entry>
+    <entry key="header.dbMenu">БД меню</entry>
+    <entry key="logOut">Выйти</entry>
+    <entry key="home">На главную страницу</entry>
+
+
+	<entry key="home.page">Домашняя страница</entry>
+
+
+</properties>

@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+      http://www.springframework.org/schema/jee
+      http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<import resource="classpath:security-config.xml" />
+	<import resource="classpath:service-context.xml" />
+
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/project-datasource" />
+	<jee:jndi-lookup id="myMailSession"	jndi-name="mail/Session" expected-type="javax.mail.Session" />
+<!-- 	<bean id="storageProperties" class="com.itacademy.jd2.po.hotel.service.googledrive.StorageProperties" 
+             p:location="${location}"/>  -->
+
+<!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="session" ref="myMailSession" />
+	</bean> -->
+
+	<context:component-scan	base-package="com.itacademy.jd2.po.hotel.web.converter" />
+	<context:component-scan	base-package="com.itacademy.jd2.po.hotel.web.util" />
+
+</beans>

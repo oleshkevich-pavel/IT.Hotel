@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="index" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+	</definition>
+	
+	<definition name="bookingstatus.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/bookingstatus/list.jsp" />
+	</definition>
+	<definition name="bookingstatus.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/bookingstatus/form.jsp" />
+	</definition>
+	
+	<definition name="gueststatus.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/gueststatus/list.jsp" />
+	</definition>
+	<definition name="gueststatus.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/gueststatus/form.jsp" />
+	</definition>
+	
+	<definition name="maintenance.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/maintenance/list.jsp" />
+	</definition>
+	<definition name="maintenance.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/maintenance/form.jsp" />
+	</definition>
+
+	<definition name="bookedmaintenance.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/bookedmaintenance/list.jsp" />
+	</definition>
+	<definition name="bookedmaintenance.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/bookedmaintenance/form.jsp" />
+	</definition>
+		
+	<definition name="room.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/room/list.jsp" />
+	</definition>
+	<definition name="room.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/room/form.jsp" />
+	</definition>
+	
+	<definition name="post.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/post/list.jsp" />
+	</definition>
+	<definition name="post.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/post/form.jsp" />
+	</definition>
+	
+	<definition name="guest.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/guest/list.jsp" />
+	</definition>
+	<definition name="guest.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/guest/form.jsp" />
+	</definition>
+	<definition name="guest.myprofile" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/guest/myprofile.jsp" />
+	</definition>
+	
+	<definition name="employee.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/employee/list.jsp" />
+	</definition>
+	<definition name="employee.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/employee/form.jsp" />
+	</definition>
+	
+	<definition name="useraccount.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/useraccount/list.jsp" />
+	</definition>
+	<definition name="useraccount.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/useraccount/form.jsp" />
+	</definition>
+	
+    <definition name="task.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/task/list.jsp" />
+	</definition>
+	<definition name="task.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/task/form.jsp" />
+	</definition>
+	
+    <definition name="photolink.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/photolink/list.jsp" />
+	</definition>
+	<definition name="photolink.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/photolink/form.jsp" />
+	</definition>
+			
+    <definition name="comment.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/comment/list.jsp" />
+	</definition>
+	<definition name="comment.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/comment/form.jsp" />
+	</definition>
+	
+	<definition name="booking.list" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/booking/list.jsp" />
+    </definition>
+    <definition name="booking.edit" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/booking/form.jsp" />
+    </definition>
+    <definition name="booking.mybooking" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/booking/mybooking.jsp" />
+	</definition>
+    <definition name="newbooking.edit" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/booking/newbooking.jsp" />
+    </definition>
+    
+    <definition name="message.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/message/list.jsp" />
+	</definition>
+	<definition name="message.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/message/form.jsp" />
+	</definition>
+	
+    <definition name="ajax-samples" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/ajax/content.jsp" />
+    </definition>
+
+    <definition name="login" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+    </definition>
+  
+    <definition name="chess" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/chess.jsp" />
+    </definition>
+    
+      <definition name="roomsearch.list" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/roomsearch/list.jsp" />
+    </definition>  
+    
+    <definition name="registration.edit" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/registration/form.jsp" />
+    </definition>
+    <definition name="registration.verifying" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/registration/verifying.jsp" />
+    </definition>
+    
+    <definition name="todaytask.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/todaytask/list.jsp" />
+	</definition>
+	
+	<definition name="contacts" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/contacts.jsp" />
+	</definition>
+
+	<definition name="gallery" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/gallery.jsp" />
+	</definition>
+	
+	<definition name="upload" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/upload.jsp" />
+	</definition>
+	
+	<definition name="roominformation.form" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/roominformation/form.jsp" />
+    </definition>  
+</tiles-definitions>

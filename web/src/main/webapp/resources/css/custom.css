@@ -1,0 +1,128 @@
+body {
+	background-image:
+		url(http://southeastinternational.com/wp-content/uploads/2017/04/Buy-a-Hotel-Chain-or-Independent-.jpg);
+	background-size: 100% 100%;
+	background-attachment: fixed;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+div.fix_block {
+	position: fixed;
+	margin: 0;
+	width: 15%;
+}
+
+.modal {
+	background-color: #f8f8fa;
+	width: 40%;
+}
+
+.page-footer {
+	background-color: #7b7596;
+}
+
+nav {
+	background-color: #6a597b;
+	background-image:
+		/* 	url(http://www.setwalls.ru/pic/201310/2560x1600/setwalls.ru-63657.jpg); */
+		url(https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1aPo6an92OjAD2tRDev6OHCBPcCTY8AE0);
+}
+
+.btn, .btn-large, .btn-small {
+	background-color: #7170a0
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+	background-color: #8c8bb1;
+}
+
+.btn:active, .btn-large:active, .btn-small:active {
+	background-color: #8c8bb1;
+}
+
+.dropdown-content {
+	background-color: #343240;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+	color: #039be5;
+}
+
+.btn-floating {
+	background-color: #6c4576;
+}
+
+.btn-floating:hover {
+	background-color: #925c9e;
+}
+
+.btn-floating:active {
+	background-color: #925c9e;
+}
+
+.parallax-container {
+	height: 600px;
+}
+
+.input-field label.multiselect-label, .input-field label.switch-label {
+	position: absolute;
+	top: -26px;
+	font-size: .8rem;
+}
+
+.switch label input[type=checkbox]:checked ~.lever {
+	background-color: #84c7c1;
+}
+
+.switch label input[type=checkbox]:checked ~.lever:before, .switch label input[type=checkbox]:checked
+    ~.lever:after {
+	left: 18px;
+}
+
+.switch label input[type=checkbox]:checked ~.lever:after {
+	background-color: #26a69a;
+}
+
+#red, #green, #blue {
+	width : 95%;
+	margin: 10px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#colorpicker {
+	height: 140px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid #BFBFBF;
+}
+
+#result {
+	height: 100%;
+	width: 100%;
+	display: inline-block;
+	vertical-align: top;
+	color: rgb(127, 127, 127);
+	background: rgb(127, 127, 127);
+	border: 1px solid #fff;
+	box-shadow: 0 0 10px;
+}
+
+#red .noUi-connect {
+	background: #c0392b;
+}
+
+#green .noUi-connect {
+	background: #27ae60;
+}
+
+#blue .noUi-connect {
+	background: #2980b9;
+}

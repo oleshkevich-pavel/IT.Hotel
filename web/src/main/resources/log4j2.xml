@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+     <Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="/logs/hotel.log"
+			filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+
+		<Logger name="abstractDAOLogger" level="info"></Logger>
+
+		<Logger name="loginLogger" level="info"></Logger>
+
+		<Logger name="registrationLogger" level="info"></Logger>
+
+		<Logger name="contactsLogger" level="info"></Logger>
+
+		<Logger name="verifyReCaptchaLogger" level="info"></Logger>
+
+		<Logger name="com.itacademy.jd2.po.hotel.service.impl" level="info"></Logger>
+
+	</Loggers>
+</Configuration>

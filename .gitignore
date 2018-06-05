@@ -1,0 +1,9 @@
+.settings/
+dao-api/.classpath
+dao-api/.project
+.project
+dao-jdbc-impl/.classpath
+service/.classpath
+web/.classpath
+
+.metadata/

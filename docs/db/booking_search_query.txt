@@ -1,0 +1,5 @@
+select * from room r where r.id NOT IN(
+	select distinct b.room_id from booking b
+where ((('2018-04-20' <b.check_in)and(b.check_in<'2018-04-21' ))))
+
+http://usefulscript.ru/rating_with_stars.php

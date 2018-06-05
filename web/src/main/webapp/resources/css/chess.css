@@ -1,0 +1,53 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#page-wrap {
+	margin: 50px;
+}
+
+p {
+	margin: 20px 0;
+}
+
+.chess table {
+	width: 100%;
+	background: #eee;
+	border-collapse: collapse;
+}
+
+.chess th {
+	/* background: #333; прозрачный фон*/
+	background: #aca7bc;
+	font-weight: 500;
+}
+
+.chess td, th {
+	padding: 3px /* отступ вокруг изменить чтобы строки лучше пр€тались*/;
+	border: 1px solid #959595; /* цвет границ €чеек */
+	text-align: left;
+	text-align: center;
+}
+
+.chess tbody tr td:hover {
+	background: #a2c3dd;
+	transition-duration: 0.2s;
+}
+
+
+#tooltip {
+  z-index: 9999;
+  position: absolute;
+  display: none;
+  top:0px;
+  left:0px;
+  width: 250px;
+  background-color: #fff;
+  padding: 5px 10px 5px 10px;
+  color: #000;
+  border: 1px solid #888;
+  border-radius: 3px; 
+  box-shadow: 0 1px 2px #555;
+  box-sizing: content-box;
+}

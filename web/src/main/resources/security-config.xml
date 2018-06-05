@@ -1,0 +1,93 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<context:component-scan
+		base-package="com.itacademy.jd2.po.hotel.web.security" />
+
+	<http>
+		<!-- <intercept-url pattern="**/add*" access="hasRole('ROLE_ADMIN')" /> -->
+        <intercept-url pattern="/bookedmaintenance/mybookedmaintenance**" access="hasRole('ROLE_GUEST')" />
+        <intercept-url pattern="/bookedmaintenance/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+
+        <intercept-url pattern="/booking/mybooking/**" access="hasRole('ROLE_GUEST')" />
+        <intercept-url pattern="/booking/newbooking/**" access="hasRole('ROLE_GUEST')" />
+        <intercept-url pattern="/booking/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+
+        <intercept-url pattern="/chess/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+
+        <intercept-url pattern="/upload/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+
+        <intercept-url pattern="/comment/**" access="hasRole('ROLE_ADMIN')" />
+
+        <intercept-url pattern="/employee/**" access="hasRole('ROLE_ADMIN')" />
+
+        <!-- <intercept-url pattern="/upload**" access="!isAnonymous()" />  -->
+        <intercept-url pattern="/guest/myprofile/**" access="hasRole('ROLE_GUEST')" />
+        <intercept-url pattern="/guest/**" access="hasAnyRole('ROLE_ADMIN, ROLE_RESEPTION')" />
+
+
+        <intercept-url pattern="/gueststatus/**" access="hasRole('ROLE_ADMIN')" />
+
+        <intercept-url pattern="/login/**" access="isAnonymous()"/> <!-- requires-channel="https" -->
+
+        <intercept-url pattern="/maintenance/**" access="hasRole('ROLE_ADMIN')" />
+<!--         <intercept-url pattern="/maintenance/add**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/maintenance/**/delete" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/maintenance/**/edit" access="hasRole('ROLE_ADMIN')" /> -->
+
+        <intercept-url pattern="/message/**" access="hasRole('ROLE_ADMIN')" />
+
+        <intercept-url pattern="/photolink/add**" access="!isAnonymous()" />
+        <intercept-url pattern="/photolink/**/delete" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/photolink/**/edit" access="hasRole('ROLE_ADMIN')" />
+
+        <intercept-url pattern="/post/**" access="hasRole('ROLE_ADMIN')" />  
+
+        <intercept-url pattern="/registration/**" access="isAnonymous()" /><!-- requires-channel="https" -->
+
+        <intercept-url pattern="/room/**" access="hasRole('ROLE_ADMIN')" />
+<!--         <intercept-url pattern="/room/add**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/room/**/delete" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/room/**/edit" access="hasRole('ROLE_ADMIN')" />
+        -->
+        <intercept-url pattern="/bookingstatus/**" access="hasRole('ROLE_ADMIN')" />
+
+        <intercept-url pattern="/task/add" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+        <intercept-url pattern="/task/**/delete" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+        <intercept-url pattern="/task/**/edit" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')" />
+        <intercept-url pattern="/task/**" access="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN', 'ROLE_RESEPTION')" />
+
+        <intercept-url pattern="/todaytask/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION', 'ROLE_EMPLOYEE')" />
+
+        <intercept-url pattern="/useraccount/**" access="hasRole('ROLE_ADMIN')" />
+
+
+
+		<form-login login-page="/login" default-target-url="/"
+			authentication-failure-url="/login?error" username-parameter="email"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout"
+			logout-url="/execute_logout" />
+		<!-- enable csrf protection -->
+		<csrf disabled="true" />
+	</http>
+	<!-- разрешаем вешать аннотации с разным уровнем доступа на методы -->
+<global-method-security secured-annotations="enabled" />
+
+<!-- здесь проверяем нормально ли ты логинишься или нет. customAuthenticationProvider
+		- это имя бина -->
+	<authentication-manager>
+		<authentication-provider ref="customAuthenticationProvider">
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>
