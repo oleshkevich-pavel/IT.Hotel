@@ -13,10 +13,18 @@
 <div class="row">
 	<form:form class="col s12" method="POST" action="${baseUrl}"
 		modelAttribute="searchFormModel">
-		<div class="input-field col s3">
+			<div class="input-field col s3">
+				<form:select path="id">
+					<option value="" selected><mytaglib:i18n key="any" /></option>
+					<form:options items="${maintenanceChoices}" />
+				</form:select>
+				<form:errors path="id" cssClass="red-text" />
+				<label for="id"><mytaglib:i18n key="chooseMaintenance" /></label>
+			</div>
+<%-- 		<div class="input-field col s3">
 			<form:input path="name" type="text" />
 			<label for="name"><mytaglib:i18n key="maintenance.name" /></label>
-		</div>
+		</div> --%>
 		<div class="input-field col s3">
 			<div class="switch">
 				<label><mytaglib:i18n key="all" /><form:checkbox path="available" /> <span
@@ -40,6 +48,8 @@
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id"><mytaglib:i18n key="id" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="name"><mytaglib:i18n key="maintenance.name" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="actualPrice"><mytaglib:i18n key="actualPrice" /></mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="photoLink"><mytaglib:i18n key="link" /></mytaglib:sort-link></th>
+			<th><mytaglib:i18n key="photo" /></th>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="available"><mytaglib:i18n key="maintenance.availability" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="created"><mytaglib:i18n key="created" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="updated"><mytaglib:i18n key="updated" /></mytaglib:sort-link></th>
@@ -51,16 +61,18 @@
 				<td><c:out value="${maintenance.id}" /></td>
 				<td><c:out value="${maintenance.name}" /></td>
 				<td><c:out value="${maintenance.actualPrice}" /></td>
+				<td><c:out value="${maintenance.photoLink}" /></td>
+				<td><c:if test="${not empty maintenance.photoLink}"><img class="materialboxed" width="200px" src="${maintenance.photoLink}"></c:if></td>
 				<td><c:out value="${maintenance.available}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd"
 						value="${maintenance.created}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd"
 						value="${maintenance.updated}" /></td>
-				<td class="right"><a class="btn-floating"
+				<td valign="middle"><a class="btn-floating"
 					href="${baseUrl}/${maintenance.id}"> <i class="material-icons">info</i>
 				</a> <a class="btn-floating" href="${baseUrl}/${maintenance.id}/edit">
 						<i class="material-icons">edit</i>
-				</a> <a class="btn-floating red"
+				</a> <a class="btn-floating red disabled"
 					href="${baseUrl}/${maintenance.id}/delete"> <i
 						class="material-icons">delete</i>
 				</a></td>

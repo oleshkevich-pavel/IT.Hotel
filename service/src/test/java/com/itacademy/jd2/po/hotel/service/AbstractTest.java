@@ -3,6 +3,7 @@ package com.itacademy.jd2.po.hotel.service;
 import java.util.Date;
 import java.util.Random;
 
+import javax.mail.MessagingException;
 import javax.persistence.PersistenceException;
 
 import org.junit.runner.RunWith;
@@ -213,6 +214,7 @@ public abstract class AbstractTest {
         final IMaintenance entity = getMaintenanceService().createEntity();
         entity.setName("maintenance-" + getRandomInt());
         entity.setActualPrice(getRandomDouble());
+        entity.setPhotoLink("photoLink-" + getRandomInt());
         entity.setAvailable(getRandomBoolean());
 
         getMaintenanceService().save(entity);
@@ -221,7 +223,6 @@ public abstract class AbstractTest {
 
     protected IBookedMaintenance saveNewBookedMaintenance() {
         final IBookedMaintenance entity = getBookedMaintenanceService().createEntity();
-        entity.setRoom(saveNewRoom());
         entity.setUserAccount(saveNewUserAccount());
         entity.setMaintenance(saveNewMaintenance());
         entity.setTime(getRandomDate());
@@ -267,7 +268,7 @@ public abstract class AbstractTest {
         return entity;
     }
 
-    protected IMessage saveNewMessage() {
+    protected IMessage saveNewMessage() throws MessagingException {
         final IMessage entity = getMessageService().createEntity();
         entity.setName("name-" + getRandomInt());
         entity.setPhone("phone-" + getRandomInt());
@@ -288,7 +289,7 @@ public abstract class AbstractTest {
         getUnstructuredObjectService().save(entity);
         return entity;
     }
-    
+
     public IBookedMaintenanceService getBookedMaintenanceService() {
         return bookedMaintenanceService;
     }

@@ -34,7 +34,13 @@
 	<definition name="bookedmaintenance.edit" extends="DefaultTemplate">
 		<put-attribute name="body" value="/WEB-INF/views/bookedmaintenance/form.jsp" />
 	</definition>
-		
+    <definition name="newmaintenance.edit" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/bookedmaintenance/newmaintenance.jsp" />
+    </definition> 
+    <definition name="bookedmaintenance.mymaintenance" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/bookedmaintenance/mymaintenance.jsp" />
+	</definition>
+			
 	<definition name="room.list" extends="DefaultTemplate">
 		<put-attribute name="body" value="/WEB-INF/views/room/list.jsp" />
 	</definition>
@@ -129,6 +135,10 @@
       <definition name="roomsearch.list" extends="DefaultTemplate">
         <put-attribute name="body" value="/WEB-INF/views/roomsearch/list.jsp" />
     </definition>  
+    
+    <definition name="maintenancesearch.list" extends="DefaultTemplate">
+        <put-attribute name="body" value="/WEB-INF/views/maintenancesearch/list.jsp" />
+    </definition> 
     
     <definition name="registration.edit" extends="DefaultTemplate">
         <put-attribute name="body" value="/WEB-INF/views/registration/form.jsp" />

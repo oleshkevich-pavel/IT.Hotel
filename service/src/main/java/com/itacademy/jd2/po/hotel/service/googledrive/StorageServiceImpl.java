@@ -11,6 +11,8 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ import com.itacademy.jd2.po.hotel.service.IStorageService;
 @Service
 public class StorageServiceImpl implements IStorageService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StorageServiceImpl.class);
+
     private final Path rootLocation;
 
     public StorageServiceImpl(final StorageProperties properties) {
@@ -43,10 +47,12 @@ public class StorageServiceImpl implements IStorageService {
     public void store(final MultipartFile file) {
         try {
             if (file.isEmpty()) {
+                LOGGER.warn("Failed to store empty file");
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
         } catch (IOException e) {
+            LOGGER.warn("Failed to store file");
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
     }
@@ -57,6 +63,7 @@ public class StorageServiceImpl implements IStorageService {
             return Files.walk(this.rootLocation, 1).filter(path -> !path.equals(this.rootLocation))
                     .map(path -> this.rootLocation.relativize(path));
         } catch (IOException e) {
+            LOGGER.warn("Failed to read stored files");
             throw new StorageException("Failed to read stored files", e);
         }
 
@@ -75,10 +82,11 @@ public class StorageServiceImpl implements IStorageService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
+                LOGGER.warn("Could not read file: {}", filename);
                 throw new StorageFileNotFoundException("Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
+            LOGGER.warn("Could not read file: {}", filename);
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -97,21 +105,9 @@ public class StorageServiceImpl implements IStorageService {
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {
+            LOGGER.warn("Could not initialize storage");
             throw new StorageException("Could not initialize storage", e);
         }
-    }
-
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        // Load client secrets.
-        InputStream in = DriveQuickstart.class.getResourceAsStream(CLIENT_SECRET_DIR);
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-                clientSecrets, SCOPES)
-                        .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(CREDENTIALS_FOLDER)))
-                        .setAccessType("offline").build();
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }
 
     @Override
@@ -130,5 +126,18 @@ public class StorageServiceImpl implements IStorageService {
         File f = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
         String url = "https://drive.google.com/uc?export=download&confirm=no_antivirus&id=" + f.getId();
         return url;
+    }
+
+    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        // Load client secrets.
+        InputStream in = DriveQuickstart.class.getResourceAsStream(CLIENT_SECRET_DIR);
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        // Build flow and trigger user authorization request.
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
+                clientSecrets, SCOPES)
+                        .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(CREDENTIALS_FOLDER)))
+                        .setAccessType("offline").build();
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }
 }

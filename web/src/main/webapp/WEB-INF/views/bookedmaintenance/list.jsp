@@ -12,7 +12,6 @@
 	<tbody>
 		<tr>
 			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id"><mytaglib:i18n key="id" /></mytaglib:sort-link></th>
-            <th><mytaglib:sort-link pageUrl="${baseUrl}" column="room"><mytaglib:i18n key="roomNumber" /></mytaglib:sort-link></th>
             <th><mytaglib:sort-link pageUrl="${baseUrl}" column="userAccount"><mytaglib:i18n key="bookedMaintenance.userAccount" /></mytaglib:sort-link></th>
             <th><mytaglib:sort-link pageUrl="${baseUrl}" column="maintenance"><mytaglib:i18n key="maintenance" /></mytaglib:sort-link></th>
             <th><mytaglib:sort-link pageUrl="${baseUrl}" column="time"><mytaglib:i18n key="bookedMaintenance.time" /></mytaglib:sort-link></th>
@@ -24,10 +23,9 @@
 		<c:forEach var="bookedMaintenance" items="${listDTO.list}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${bookedMaintenance.id}" /></td>
-				<td><c:out value="${bookedMaintenance.roomNumber}" /></td>
 				<td><c:out value="${bookedMaintenance.userAccountEmail}" /></td>
 				<td><c:out value="${bookedMaintenance.maintenanceName}" /></td>
-				<td><fmt:formatDate pattern="hh:mm//yyyy-MM-dd" value="${bookedMaintenance.time}" /></td>
+				<td><fmt:formatDate pattern="hh:mm a yyyy-MM-dd" value="${bookedMaintenance.time}" /></td>
 				<td><c:out value="${bookedMaintenance.price}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${bookedMaintenance.created}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${bookedMaintenance.updated}" /></td>

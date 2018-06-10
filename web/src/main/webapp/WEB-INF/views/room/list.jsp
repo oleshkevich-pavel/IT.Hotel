@@ -46,7 +46,7 @@
 				    <a class="btn-floating"	href="${baseUrl}/${room.id}/edit">
 				           <i class="material-icons">edit</i>
 				    </a>
-			        <a class="btn-floating red"	href="${baseUrl}/${room.id}/delete">
+			        <a class="btn-floating red disabled" href="${baseUrl}/${room.id}/delete">
 		                   <i class="material-icons">delete</i>
 			        </a>
 				</td>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.api.model.IMaintenance;
-import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
 import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 import com.itacademy.jd2.po.hotel.web.dto.BookedMaintenanceDTO;
 
@@ -17,11 +16,6 @@ public class BookedMaintenanceToDTOConverter implements Function<IBookedMaintena
     public BookedMaintenanceDTO apply(final IBookedMaintenance entity) {
         final BookedMaintenanceDTO bookedMaintenanceDTO = new BookedMaintenanceDTO();
         bookedMaintenanceDTO.setId(entity.getId());
-        IRoom room = entity.getRoom();
-        if (room != null) {
-            bookedMaintenanceDTO.setRoomId(room.getId());
-            bookedMaintenanceDTO.setRoomNumber(room.getNumber());
-        }
 
         IUserAccount userAccount = entity.getUserAccount();
         if (userAccount != null) {

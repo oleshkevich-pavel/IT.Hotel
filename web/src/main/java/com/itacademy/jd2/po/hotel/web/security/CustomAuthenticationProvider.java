@@ -28,7 +28,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
-       
+
         final String email = authentication.getPrincipal().toString();
         final String password = authentication.getCredentials().toString();
         LOGGER.info("user {} try to log in.", email);
@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (user == null) {
             LOGGER.info("user {} doesn't exist.");
             throw new BadCredentialsException("1000");
-            
+
         } else {
          // если гость не подтвердил e-mail доступа ему нет
             if ((user.getGuest() != null) && (!user.getGuest().getVerified())) {
@@ -47,7 +47,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 throw new BadCredentialsException("1000");
             }
             final int userId = user.getId();
- 
+
             final List<SimpleGrantedAuthority> roles = Arrays
                     .asList(new SimpleGrantedAuthority(user.getRole().toString()));
             LOGGER.info("user {} with role {} has been logged.", user.getEmail(), user.getRole());

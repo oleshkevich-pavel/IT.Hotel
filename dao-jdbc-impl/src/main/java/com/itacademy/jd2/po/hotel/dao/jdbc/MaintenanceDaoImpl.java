@@ -27,17 +27,17 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
 
     @Override
     public void insert(final IMaintenance entity) {
-        executeStatement(new PreparedStatementAction<IMaintenance>(
-                String.format("insert into %s (name, actual_price, available, created, updated) values(?,?,?,?,?)",
-                        getTableName()),
-                true) {
+        executeStatement(new PreparedStatementAction<IMaintenance>(String.format(
+                "insert into %s (name, actual_price, photo_link, available, created, updated) values(?,?,?,?,?,?)",
+                getTableName()), true) {
             @Override
             public IMaintenance doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
                 pStmt.setString(1, entity.getName());
                 pStmt.setDouble(2, entity.getActualPrice());
-                pStmt.setBoolean(3, entity.isAvailable());
-                pStmt.setObject(4, entity.getCreated(), Types.TIMESTAMP);
-                pStmt.setObject(5, entity.getUpdated(), Types.TIMESTAMP);
+                pStmt.setString(3, entity.getPhotoLink());
+                pStmt.setBoolean(4, entity.isAvailable());
+                pStmt.setObject(5, entity.getCreated(), Types.TIMESTAMP);
+                pStmt.setObject(6, entity.getUpdated(), Types.TIMESTAMP);
 
                 pStmt.executeUpdate();
 
@@ -55,15 +55,18 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
 
     @Override
     public void update(final IMaintenance entity) {
-        executeStatement(new PreparedStatementAction<IMaintenance>(String.format(
-                "update %s set name=?, actual_price=?, available=?, updated=? where id=?", getTableName()), true) {
+        executeStatement(new PreparedStatementAction<IMaintenance>(
+                String.format("update %s set name=?, actual_price=?, photo_link=?, available=?, updated=? where id=?",
+                        getTableName()),
+                true) {
             @Override
             public IMaintenance doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
                 pStmt.setString(1, entity.getName());
                 pStmt.setDouble(2, entity.getActualPrice());
-                pStmt.setBoolean(3, entity.isAvailable());
-                pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
-                pStmt.setInt(5, entity.getId());
+                pStmt.setString(3, entity.getPhotoLink());
+                pStmt.setBoolean(4, entity.isAvailable());
+                pStmt.setObject(5, entity.getUpdated(), Types.TIMESTAMP);
+                pStmt.setInt(6, entity.getId());
 
                 pStmt.executeUpdate();
 
@@ -87,6 +90,7 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
         entity.setId((Integer) resultSet.getObject("id"));
         entity.setName(resultSet.getString("name"));
         entity.setActualPrice(resultSet.getDouble("actual_price"));
+        entity.setName(resultSet.getString("photo_link"));
         entity.setAvailable(resultSet.getBoolean("available"));
         entity.setCreated(resultSet.getTimestamp("created"));
         entity.setUpdated(resultSet.getTimestamp("updated"));
@@ -129,5 +133,10 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
                 sb.append(String.format(" and %s", condition));
             }
         }
+    }
+
+    @Override
+    public Double getMaxPrice() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -57,39 +57,43 @@ public class GuestServiceImpl implements IGuestService {
         final Date modifiedOn = new Date();
         userAccount.setUpdated(modifiedOn);
         entity.setUpdated(modifiedOn);
+        try {
+            if (userAccount.getId() == null) {
+                userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+                userAccount.setCreated(modifiedOn);
+                if (userAccount.getRole() == null) {
+                    userAccount.setRole(Role.ROLE_GUEST);
+                }
+                LOGGER.info("new saved entity: {}", userAccount);
+                userAccountDao.insert(userAccount);
+                if (entity.getGuestStatus().getName() == null) {
+                    // ставим статус, где скидка минимальная;
+                    entity.setGuestStatus(getStatusNewGuest());
+                }
+                entity.setCreated(modifiedOn);
+                entity.setId(userAccount.getId());
+                entity.setUserAccount(userAccount);
+                if (entity.getCredit() == null) {
+                    // если гость регистрируется сам, то ставим ему credit=0;
+                    entity.setCredit(0.00);
+                }
+                LOGGER.info("new saved entity: {}", entity);
+                guestDao.insert(entity);
 
-        if (userAccount.getId() == null) {
-            userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
-            userAccount.setCreated(modifiedOn);
-            if (userAccount.getRole() == null) {
-                userAccount.setRole(Role.ROLE_GUEST);
-            }
-            LOGGER.info("new saved entity: {}", userAccount);
-            userAccountDao.insert(userAccount);
-            if (entity.getGuestStatus().getName() == null) {
-                // ставим статус, где скидка минимальная;
-                entity.setGuestStatus(getStatusNewGuest());
-            }
-            entity.setCreated(modifiedOn);
-            entity.setId(userAccount.getId());
-            entity.setUserAccount(userAccount);
-            if (entity.getCredit() == null) {
-                // если гость регистрируется сам, то ставим ему credit=0;
-                entity.setCredit(0.00);
-            }
-            LOGGER.info("new saved entity: {}", entity);
-            guestDao.insert(entity);
+                userAccount.setGuest(entity);
+            } else {
+                if (userAccount.getRole() == null) {
+                    userAccount.setRole(Role.ROLE_GUEST);
+                }
+                LOGGER.info("updated entity: {}", userAccount);
+                userAccountDao.update(userAccount);
 
-            userAccount.setGuest(entity);
-        } else {
-            if (userAccount.getRole() == null) {
-                userAccount.setRole(Role.ROLE_GUEST);
+                LOGGER.info("updated entity: {}", entity);
+                guestDao.update(entity);
             }
-            LOGGER.info("updated entity: {}", userAccount);
-            userAccountDao.update(userAccount);
-
-            LOGGER.info("updated entity: {}", entity);
-            guestDao.update(entity);
+        } catch (PersistenceException e) {
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
     }
 
@@ -172,7 +176,11 @@ public class GuestServiceImpl implements IGuestService {
 
     @Override
     public Integer getDiscount(final Integer id) {
-        Integer discount = guestDao.getFullInfo(id).getGuestStatus().getDiscount();
+        IGuest guest = guestDao.getFullInfo(id);
+        Integer discount = 0;
+        if (guest != null) {
+            discount = guest.getGuestStatus().getDiscount();
+        }
         LOGGER.debug("discount for current user{}: {}", id, discount);
         return discount;
     }

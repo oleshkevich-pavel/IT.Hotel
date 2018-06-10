@@ -32,6 +32,7 @@ public class PostServiceImpl implements IPostService {
     public void save(final IPost entity) throws PersistenceException {
         final Date modifiedOn = new Date();
         entity.setUpdated(modifiedOn);
+        try {
         if (entity.getId() == null) {
             entity.setCreated(modifiedOn);
             LOGGER.info("new saved entity: {}", entity);
@@ -40,6 +41,10 @@ public class PostServiceImpl implements IPostService {
             LOGGER.info("updated entity: {}", entity);
             dao.update(entity);
         }
+    } catch (PersistenceException e) {
+        LOGGER.warn(e.getMessage());
+        throw e;
+    }
     }
 
     @Override

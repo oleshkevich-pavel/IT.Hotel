@@ -23,7 +23,6 @@ import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.orm.model.BookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.orm.model.BookedMaintenance_;
 import com.itacademy.jd2.po.hotel.dao.orm.model.Maintenance_;
-import com.itacademy.jd2.po.hotel.dao.orm.model.Room_;
 import com.itacademy.jd2.po.hotel.dao.orm.model.UserAccount_;
 
 @Repository
@@ -48,7 +47,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
         cq.select(from);
 
         from.fetch(BookedMaintenance_.userAccount, JoinType.LEFT);
-        from.fetch(BookedMaintenance_.room, JoinType.LEFT);
         from.fetch(BookedMaintenance_.maintenance, JoinType.LEFT);
 
         final TypedQuery<IBookedMaintenance> q = em.createQuery(cq);
@@ -64,7 +62,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
         cq.select(from);
 
         from.fetch(BookedMaintenance_.userAccount, JoinType.LEFT);
-        from.fetch(BookedMaintenance_.room, JoinType.LEFT);
         from.fetch(BookedMaintenance_.maintenance, JoinType.LEFT);
 
         cq.where(cb.equal(from.get(BookedMaintenance_.id), id));
@@ -84,10 +81,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
 
         if (filter.getFetchUserAccount()) {
             from.fetch(BookedMaintenance_.userAccount, JoinType.LEFT);
-        }
-
-        if (filter.getFetchRoom()) {
-            from.fetch(BookedMaintenance_.room, JoinType.LEFT);
         }
 
         if (filter.getFetchMaintenance()) {
@@ -135,11 +128,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
             final Root<BookedMaintenance> from) {
         final List<Predicate> ands = new ArrayList<>();
 
-        final Integer roomNumber = filter.getRoomNumber();
-        if (roomNumber != null) {
-            ands.add(cb.equal(from.get(BookedMaintenance_.room).get(Room_.number), roomNumber));
-        }
-        
         final Integer userAccountId = filter.getUserAccountId();
         if (userAccountId != null) {
             ands.add(cb.equal(from.get(BookedMaintenance_.userAccount).get(UserAccount_.id), userAccountId));
@@ -149,7 +137,7 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
         if (StringUtils.isNotBlank(userAccountEmail)) {
             ands.add(cb.equal(from.get(BookedMaintenance_.userAccount).get(UserAccount_.email), userAccountEmail));
         }
-        
+
         final String maintenanceName = filter.getMaintenanceName();
         if (StringUtils.isNotBlank(maintenanceName)) {
             ands.add(cb.equal(from.get(BookedMaintenance_.maintenance).get(Maintenance_.name), maintenanceName));
@@ -187,8 +175,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
 
     private Path<?> getSortPath(final Root<BookedMaintenance> from, final String sortColumn) {
         switch (sortColumn) {
-        case "room":
-            return from.get(BookedMaintenance_.room).get(Room_.number);
         case "userAccount":
             return from.get(BookedMaintenance_.userAccount).get(UserAccount_.email);
         case "maintenance":

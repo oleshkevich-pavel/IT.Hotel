@@ -13,11 +13,9 @@ import com.itacademy.jd2.po.hotel.dao.api.IBookedMaintenanceDao;
 import com.itacademy.jd2.po.hotel.dao.api.filter.BookedMaintenanceFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.api.model.IMaintenance;
-import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
 import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 import com.itacademy.jd2.po.hotel.dao.jdbc.model.BookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.jdbc.model.Maintenance;
-import com.itacademy.jd2.po.hotel.dao.jdbc.model.Room;
 import com.itacademy.jd2.po.hotel.dao.jdbc.model.UserAccount;
 import com.itacademy.jd2.po.hotel.dao.jdbc.utils.PreparedStatementAction;
 
@@ -33,18 +31,17 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
     @Override
     public void insert(final IBookedMaintenance entity) {
         executeStatement(new PreparedStatementAction<IBookedMaintenance>(
-                String.format("insert into %s (user_account_id, room_id, maintenance_id, "
-                        + "time, price, created, updated) values(?,?,?,?,?,?,?)", getTableName()),
+                String.format("insert into %s (user_account_id, maintenance_id, "
+                        + "time, price, created, updated) values(?,?,?,?,?,?)", getTableName()),
                 true) {
             @Override
             public IBookedMaintenance doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
                 pStmt.setInt(1, entity.getUserAccount().getId());
-                pStmt.setInt(2, entity.getRoom().getId());
-                pStmt.setInt(3, entity.getMaintenance().getId());
-                pStmt.setObject(4, entity.getTime(), Types.TIMESTAMP);
-                pStmt.setDouble(5, entity.getPrice());
-                pStmt.setObject(6, entity.getCreated(), Types.TIMESTAMP);
-                pStmt.setObject(7, entity.getUpdated(), Types.TIMESTAMP);
+                pStmt.setInt(2, entity.getMaintenance().getId());
+                pStmt.setObject(3, entity.getTime(), Types.TIMESTAMP);
+                pStmt.setDouble(4, entity.getPrice());
+                pStmt.setObject(5, entity.getCreated(), Types.TIMESTAMP);
+                pStmt.setObject(6, entity.getUpdated(), Types.TIMESTAMP);
 
                 pStmt.executeUpdate();
 
@@ -63,18 +60,17 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
     @Override
     public void update(final IBookedMaintenance entity) {
         executeStatement(new PreparedStatementAction<IBookedMaintenance>(
-                String.format("update %s set user_account_id=?, room_id=?, maintenance_id=?, "
+                String.format("update %s set user_account_id=?, maintenance_id=?, "
                         + "time=?, price=?, updated=? where id=?", getTableName()),
                 true) {
             @Override
             public IBookedMaintenance doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
                 pStmt.setInt(1, entity.getUserAccount().getId());
-                pStmt.setInt(2, entity.getRoom().getId());
-                pStmt.setInt(3, entity.getMaintenance().getId());
-                pStmt.setObject(4, entity.getTime(), Types.TIMESTAMP);
-                pStmt.setDouble(5, entity.getPrice());
-                pStmt.setObject(6, entity.getCreated(), Types.TIMESTAMP);
-                pStmt.setInt(7, entity.getId());
+                pStmt.setInt(2, entity.getMaintenance().getId());
+                pStmt.setObject(3, entity.getTime(), Types.TIMESTAMP);
+                pStmt.setDouble(4, entity.getPrice());
+                pStmt.setObject(5, entity.getCreated(), Types.TIMESTAMP);
+                pStmt.setInt(6, entity.getId());
 
                 final int i = pStmt.executeUpdate();
                 if (i == 1) {
@@ -98,16 +94,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
                 userAccount.setLastName(resultSet.getString("user_account_last_name"));
             }
             entity.setUserAccount(userAccount);
-        }
-
-        final Integer roomId = (Integer) resultSet.getObject("room_id");
-        if (roomId != null) {
-            final IRoom room = new Room();
-            room.setId(roomId);
-            if (columns.contains("room_number")) {
-                room.setNumber((Integer) resultSet.getObject("room_number"));
-            }
-            entity.setRoom(room);
         }
 
         final Integer maintenanceId = (Integer) resultSet.getObject("maintenance_id");
@@ -136,10 +122,7 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
     @Override
     public List<IBookedMaintenance> find(final BookedMaintenanceFilter filter) {
         final StringBuilder sql = new StringBuilder("select booked_maintenance.*");
-        if (filter.getFetchRoom()) {
-            sql.append(String.format(", room.number as room_number"));
-        }
-        if (filter.getFetchUserAccount()) {
+         if (filter.getFetchUserAccount()) {
             sql.append(String.format(", user_account.last_name as user_account_last_name"));
         }
         if (filter.getFetchMaintenance()) {
@@ -162,9 +145,6 @@ public class BookedMaintenanceDaoImpl extends AbstractDaoImpl<IBookedMaintenance
     }
 
     private void appendJOINs(final StringBuilder sb, final BookedMaintenanceFilter filter) {
-        if (filter.getFetchRoom()) {
-            sb.append(" join room on (room.id=booked_maintenance.room_id) ");
-        }
         if (filter.getFetchUserAccount()) {
             sb.append(" join user_account on (user_account.id=booked_maintenance.user_account_id) ");
         }

@@ -46,7 +46,7 @@
 				<div class="input-field col s6">
 					<form:select path="answerableId">
 						<option value="" selected><mytaglib:i18n key="any" /></option>
-						<form:options items="${answerableChoices}" />
+						<form:options items="${employeeChoices}" />
 					</form:select>
 					<form:errors path="answerableId" cssClass="red-text" />
 					<label for="answerableId"><mytaglib:i18n
@@ -61,9 +61,11 @@
 			</div>
 		</form:form>
 	</div>
+</div>
 <c:choose>
 <c:when test="${listDTO.totalCount eq 0}"><h4 class="header"><mytaglib:i18n key="noTodayTasks" /></h4></c:when>
 <c:otherwise>
+<h4 class="header"><mytaglib:i18n key="allTodayTasks" /></h4>
 	<table class="bordered highlight">
 		<tbody>
 			<tr>
@@ -81,6 +83,10 @@
 				<th><mytaglib:sort-link pageUrl="${baseUrl}" column="priority">
 						<mytaglib:i18n key="task.priority" />
 					</mytaglib:sort-link></th>
+				<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
+				<th><mytaglib:sort-link pageUrl="${baseUrl}" column="answerable">
+						<mytaglib:i18n key="task.answerable" /></mytaglib:sort-link></th>
+				</sec:authorize>
 				<th><mytaglib:sort-link pageUrl="${baseUrl}" column="creator">
 						<mytaglib:i18n key="task.creator" />
 					</mytaglib:sort-link></th>
@@ -90,16 +96,19 @@
 				<tr>
 					<td><c:out value="${task.toDo}" /></td>
 					<td><c:out value="${task.description}" /></td>
-					<td><fmt:formatDate pattern="hh:mm a // yyyy-MM-dd"
+					<td><fmt:formatDate pattern="hh:mm a yyyy-MM-dd"
 							value="${task.executionTime}" /></td>
 					<td><c:out value="${task.priority}" /></td>
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
+					<td><c:out value="${task.answerableEmail}" /></td>
+					</sec:authorize>
 					<td><c:out value="${task.creatorEmail}" /></td>
-					<td class="right"><a class="btn-floating"
+					<td class="right"><%-- <a class="btn-floating"
 						href="${pageContext.request.contextPath}/task/${task.id}"> <i
-							class="material-icons">info</i>
-					</a> <c:choose>
+							class="material-icons">info</i> </a> --%>
+							<c:choose>
 							<c:when test="${task.executed}">
-								<a class="waves-effect waves-light btn" disabled="true"><i
+								<a class="waves-effect waves-light btn disabled"><i
 									class="material-icons right">done_all</i> <mytaglib:i18n
 										key="todayTask.done" /></a>
 							</c:when>
@@ -119,7 +128,7 @@
 	<mytags:paging />
 	</c:otherwise>
 </c:choose>
-</div>
+
 
 <div id="test-swipe-2" class="col s12">
 	<div class="row">
@@ -127,8 +136,9 @@
 			varStatus="loopCounter">
 			<div class="col s1">
 				<br> 
-				<a class="waves-effect waves-light btn tooltipped" href="${baseUrl}/${room.id}/clean" data-position="bottom"
-					data-tooltip="Убрать"><c:out value="${room.number}" /><i class="material-icons left">pan_tool</i></a>
+					<a class="waves-effect waves-light btn tooltipped" href="${baseUrl}/${room.id}/clean" data-position="bottom"
+					data-tooltip="<mytaglib:i18n
+										key="todayTask.clean" />"><c:out value="${room.number}" /><i class="material-icons left">pan_tool</i></a>
 			</div>
 		</c:forEach>
 	</div>
@@ -140,7 +150,8 @@
 			varStatus="loopCounter">
 			<div class="col s1">
 				<br> <a class="waves-effect waves-light btn tooltipped" href="${baseUrl}/${room.id}/repair" data-position="bottom"
-					data-tooltip="Отремонтировать"><c:out value="${room.number}" /><i class="material-icons left">build</i></a>
+					data-tooltip="<mytaglib:i18n
+										key="todayTask.repair" />"><c:out value="${room.number}" /><i class="material-icons left">build</i></a>
 			</div>
 		</c:forEach>
 	</div>

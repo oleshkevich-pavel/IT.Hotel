@@ -38,7 +38,7 @@
 		</div>
 		<div class="col s2">
 			<a class="btn waves-effect waves-light right"
-				href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
+				href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
 		</div>
 	</div>
 </sec:authorize> --%>
@@ -90,13 +90,13 @@
 	</c:forEach>
 	<sec:authorize access="!isAnonymous()">
 		<div class="row">
-		<sec:authentication var="userAccountId" property="id" />
+	<%-- 	<sec:authentication var="userAccountId" property="id" /> --%>
 			<form:form class="col s12" method="POST" action="${baseUrl}/${formModel.id}" modelAttribute="commentModel">
 				<div class="input-field col s12">
-				    <form:input path="id" type="hidden" />
-					<form:input path='roomId' value='${formModel.id}' type="hidden"/>
+				   <%--   <form:input path="id" type="hidden" /> --%>
+<%-- 					<form:input path='roomId' value='${formModel.id}' type="hidden"/>
 				 	<form:input path='userAccountId' value='${userAccountId}' type="hidden"/>
-					<form:textarea path="comment" type="text" class="materialize-textarea" />
+ --%>					<form:textarea path="comment" type="text" class="materialize-textarea" />
 					<form:errors path="comment" cssClass="red-text" />
 					<label for="comment"><mytaglib:i18n key="comment" /></label>
 				</div>
@@ -109,7 +109,7 @@
 		<div class="col s9"></div>
 		<div class="col s3">
 			<a class="btn waves-effect waves-light right"
-				href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
+				href="${pageContext.request.contextPath}/roomsearch"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
 		</div>
 	</div>
 </div>

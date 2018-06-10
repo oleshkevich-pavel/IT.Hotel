@@ -3,11 +3,10 @@ package com.itacademy.jd2.po.hotel.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.IMessage;
-import com.itacademy.jd2.po.hotel.service.IEmailSenderService;
 import com.itacademy.jd2.po.hotel.service.IMessageService;
 import com.itacademy.jd2.po.hotel.service.IReCaptchaService;
 import com.itacademy.jd2.po.hotel.web.converter.MessageFromDTOConverter;
@@ -27,14 +25,10 @@ import com.itacademy.jd2.po.hotel.web.dto.MessageDTO;
 @RequestMapping(value = "/contacts")
 public class ContactsController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("contactsLogger");
-
     @Autowired
     private IMessageService messageService;
     @Autowired
     private MessageFromDTOConverter fromDTOConverter;
-    @Autowired
-    private IEmailSenderService emailSenderService;
     @Autowired
     private IReCaptchaService reCaptchaService;
 
@@ -49,24 +43,24 @@ public class ContactsController {
         if (result.hasErrors()) {
             return new ModelAndView("contacts", hashMap);
         } else {
-
-            String gRecaptchaResponse = req.getParameter("g-recaptcha-response"); // Verify
-                                                                                  // CAPTCHA.
+            // Verify CAPTCHA.
+            String gRecaptchaResponse = req.getParameter("g-recaptcha-response");
             boolean valid = reCaptchaService.verify(gRecaptchaResponse);
 
             if (!valid) { // req.setAttribute("errorString", "Captcha
                           // invalid!");
                 hashMap.put("error", reCaptchaService.ERROR_STRING);
-                LOGGER.info(reCaptchaService.ERROR_STRING);
                 return new ModelAndView("contacts", hashMap);
             }
 
             final IMessage entity = fromDTOConverter.apply(formModel);
-            messageService.save(entity);
-            emailSenderService.sendEmailFromWebSite(entity);
-            hashMap.clear();
-            hashMap.put("error", "Your message was sended");
-            LOGGER.info("Message from website was sended to default email");
+            try {
+                messageService.save(entity);
+                hashMap.put("error", "Your message was sended");
+            } catch (MessagingException e) {
+                hashMap.put("error", "Your message was not sended. Try again later.");
+                hashMap.put("formMidel", formModel);
+            }
             return new ModelAndView("contacts", hashMap);
         }
     }

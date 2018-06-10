@@ -31,14 +31,19 @@ public class GuestStatusServiceImpl implements IGuestStatusService {
     @Override
     public void save(final IGuestStatus entity) throws PersistenceException {
         Date modifiedOn = new Date();
-        entity.setUpdated(modifiedOn);
-        if (entity.getId() == null) {
-            entity.setCreated(modifiedOn);
-            LOGGER.info("new saved entity: {}", entity);
-            dao.insert(entity);
-        } else {
-            LOGGER.info("updated entity: {}", entity);
-            dao.update(entity);
+        try {
+            entity.setUpdated(modifiedOn);
+            if (entity.getId() == null) {
+                entity.setCreated(modifiedOn);
+                LOGGER.info("new saved entity: {}", entity);
+                dao.insert(entity);
+            } else {
+                LOGGER.info("updated entity: {}", entity);
+                dao.update(entity);
+            }
+        } catch (PersistenceException e) {
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
     }
 

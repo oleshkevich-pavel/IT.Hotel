@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.itacademy.jd2.po.hotel.service.IStorageService;
+import com.itacademy.jd2.po.hotel.service.googledrive.StorageException;
 import com.itacademy.jd2.po.hotel.service.googledrive.StorageFileNotFoundException;
 
 @Controller
@@ -32,15 +33,17 @@ public class FileUploadController {
     private IStorageService storageService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView listUploadedFiles() throws IOException {
+    public ModelAndView listUploadedFiles() {
         final Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("files",
-                storageService.loadAll()
-                        .map(path -> MvcUriComponentsBuilder
-                                .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
-                                .build().toString())
-                        .collect(Collectors.toList()));
-
+        try {
+            hashMap.put("files", storageService.loadAll()
+                    .map(path -> MvcUriComponentsBuilder
+                            .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
+                            .build().toString())
+                    .collect(Collectors.toList()));
+        } catch (StorageException e) {
+            hashMap.put("message", e.getMessage());
+        }
         return new ModelAndView("upload", hashMap);
     }
 
@@ -48,7 +51,6 @@ public class FileUploadController {
     @ResponseBody
     @RequestMapping(value = "/files/{filename:.+}", method = RequestMethod.GET)
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
@@ -56,15 +58,22 @@ public class FileUploadController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView handleFileUpload(@RequestParam("file") MultipartFile file)
-            throws GeneralSecurityException, IOException {
-
-        storageService.store(file);
-        String url = storageService.getUploadedFileUrl(file);
-        storageService.deleteAll();
-        System.out.println("new uploaded file " + url);
+    public ModelAndView handleFileUpload(@RequestParam("file") MultipartFile file) {
         final Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("message", url);
+        try {
+            storageService.store(file);
+        } catch (StorageException e) {
+            hashMap.put("message", e.getMessage());
+        }
+        String url;
+        try {
+            url = storageService.getUploadedFileUrl(file);
+            // storageService.deleteAll();
+            System.out.println("new uploaded file " + url);
+            hashMap.put("message", url);
+        } catch (GeneralSecurityException | IOException e) {
+            hashMap.put("message", e.getMessage());
+        }
         return new ModelAndView("upload", hashMap);
     }
 

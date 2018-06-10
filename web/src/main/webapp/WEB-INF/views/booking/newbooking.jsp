@@ -44,8 +44,7 @@
 				</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right"
-					href="javascript:history.back();"><i
+				<a class="btn waves-effect waves-light right" href="${pageContext.request.contextPath}/roomsearch"><i
 					class="material-icons left">reply</i>
 				<mytaglib:i18n key="back" /> </a>
 			</div>

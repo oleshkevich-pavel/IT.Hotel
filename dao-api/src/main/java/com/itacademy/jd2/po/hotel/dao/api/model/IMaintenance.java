@@ -11,6 +11,10 @@ public interface IMaintenance extends IBaseEntity {
     Double getActualPrice();
 
     void setActualPrice(Double actualPrice);
+    
+    String getPhotoLink();
+
+    void setPhotoLink(String photoLink);
 
     Boolean isAvailable();
 

@@ -3,12 +3,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 
 <c:set var="baseUrl" value="${pageContext.request.contextPath}/gallery" />
 
-<h4 class="header"><mytaglib:i18n key="gallery" /></h4>
+<h4 class="header">
+	<mytaglib:i18n key="gallery" />
+</h4>
 
 <ul class="collapsible popout">
 	<c:set var="active" value="true" />
@@ -26,9 +29,8 @@
 		</c:choose>
 		<div class="collapsible-header">
 			<div class="col s3">
-			    <strong>
-				    <mytaglib:i18n key="room" />
-			     	<c:out value="${room.number}" />
+				<strong> <mytaglib:i18n key="room" /> <c:out
+						value="${room.number}" />
 				</strong>
 			</div>
 			<div class="col s3">
@@ -40,9 +42,11 @@
 				<c:out value="${room.actualPrice}" />
 			</div>
 			<div class="col s3">
-				<a href="${pageContext.request.contextPath}/roominformation/${room.id}">
-			    <mytaglib:i18n key="roomSearch.moreRoomDetails" /></a>
-		    </div>
+				<a
+					href="${pageContext.request.contextPath}/roominformation/${room.id}">
+					<mytaglib:i18n key="roomSearch.moreRoomDetails" />
+				</a>
+			</div>
 		</div>
 		<div class="collapsible-body">
 			<div class="row">
@@ -56,26 +60,32 @@
 
 				</c:forEach>
 				<sec:authorize access="!isAnonymous()">
-				<div class="col s2 center">
-					<div class="row">
-						<form:form method="POST" enctype="multipart/form-data" action="${baseUrl}">
-							<div class="file-field input-field">
-								<div class="btn">
-									<span><mytaglib:i18n key="file" /></span> <input type="file" name="file">
+					<div class="col s2 center">
+						<div class="row">
+							<form:form method="POST" enctype="multipart/form-data"
+								action="${baseUrl}">
+								<div class="file-field input-field">
+									<div class="btn">
+										<span><mytaglib:i18n key="file" /></span> <input type="file"
+											name="file">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+									<!-- <input class="file-path validate" type="text"> -->
+									<input name="roomid" type="hidden" value="${room.id}">
+									<button class="btn waves-effect waves-light" type="submit"
+										value="Upload">
+										<mytaglib:i18n key="upload" />
+										<i class="material-icons right">cloud_upload</i>
+									</button>
 								</div>
-								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text">
-								</div>
-								<!-- <input class="file-path validate" type="text"> -->
-								<input name="roomid" type="hidden" value="${room.id}">
-								<button class="btn waves-effect waves-light" type="submit"
-									value="Upload">
-									<mytaglib:i18n key="upload" /><i class="material-icons right">cloud_upload</i>
-								</button>
-							</div>
-						</form:form>
+							</form:form>
+						</div>
 					</div>
-				</div>
+					<div class="col s2">
+						<h5><c:out value="${error}" /></h5>
+					</div>
 				</sec:authorize>
 				<c:if test="${entry.value.totalCount eq 0}">
 					<div class="col s10">

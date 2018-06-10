@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.URL;
+
 public class MaintenanceDTO {
 
     private Integer id;
@@ -18,6 +20,10 @@ public class MaintenanceDTO {
     @Digits(integer = 10, fraction = 2) // валидация на 2 знака после запятой
     @NotNull
     private Double actualPrice;
+
+    @URL
+    @Size(max = 300)
+    private String photoLink;
 
     @NotNull
     private boolean available;
@@ -47,6 +53,14 @@ public class MaintenanceDTO {
 
     public void setActualPrice(final Double actualPrice) {
         this.actualPrice = actualPrice;
+    }
+
+    public String getPhotoLink() {
+        return photoLink;
+    }
+
+    public void setPhotoLink(final String photoLink) {
+        this.photoLink = photoLink;
     }
 
     public boolean isAvailable() {

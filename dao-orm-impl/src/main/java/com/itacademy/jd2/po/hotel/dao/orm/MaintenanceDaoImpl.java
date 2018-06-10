@@ -11,7 +11,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
@@ -97,16 +96,43 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
         final List<Predicate> ands = new ArrayList<>();
 
         final String name = filter.getName();
-        if (StringUtils.isNotBlank(name)) {
+        if (name != null) {
             ands.add(cb.equal(from.get(Maintenance_.name), name));
         }
+
         final Boolean available = filter.getAvailable();
         if (Boolean.TRUE.equals(available)) {
             ands.add(cb.equal(from.get(Maintenance_.available), true));
         }
+
+        final Double priceMin = filter.getPriceMin();
+        final Double priceMax = filter.getPriceMax();
+        if (priceMin != null) {
+            if (priceMax != null) {
+                ands.add(cb.between(from.get(Maintenance_.actualPrice), priceMin, priceMax));
+            } else {
+                ands.add(cb.greaterThanOrEqualTo(from.get(Maintenance_.actualPrice), priceMin));
+            }
+        } else if (priceMax != null) {
+            ands.add(cb.lessThanOrEqualTo(from.get(Maintenance_.actualPrice), priceMax));
+        }
+
         if (!ands.isEmpty()) {
             cq.where(cb.and(ands.toArray(new Predicate[0])));
         }
+    }
+
+    @Override
+    public Double getMaxPrice() {
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Double> cq = cb.createQuery(Double.class);
+        final Root<Maintenance> from = cq.from(Maintenance.class);
+        cq.select(cb.max(from.get(Maintenance_.actualPrice)));
+
+        final TypedQuery<Double> q = em.createQuery(cq);
+        List<Double> resultList = q.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     private Path<?> getSortPath(final Root<Maintenance> from, final String sortColumn) {
@@ -115,6 +141,8 @@ public class MaintenanceDaoImpl extends AbstractDaoImpl<IMaintenance, Integer> i
             return from.get(Maintenance_.name);
         case "actualPrice":
             return from.get(Maintenance_.actualPrice);
+        case "photoLink":
+            return from.get(Maintenance_.photoLink);
         case "available":
             return from.get(Maintenance_.available);
         case "created":

@@ -8,17 +8,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-<!-- <servlet>
-    <servlet-name>SpringDispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <multipart-config>
-        <location>src/main/resources/upload-dir</location>
-        <max-file-size>5242880</max-file-size>5MB
-        <max-request-size>20971520</max-request-size>20MB
-        <file-size-threshold>0</file-size-threshold>
-    </multipart-config>
-</servlet> -->
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:webapp-context.xml</param-value>
@@ -84,10 +73,13 @@
 	</jsp-config>
 	
 	<error-page>
-        <error-code>404</error-code>
+        <error-code>403</error-code>
+        <location>/WEB-INF/errors/error403.jsp</location>
+    </error-page>
+    <error-page>
+    <error-code>404</error-code>
         <location>/WEB-INF/errors/error404.jsp</location>
     </error-page>
-    
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/errors/error500.jsp</location>

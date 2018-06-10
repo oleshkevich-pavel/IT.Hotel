@@ -4,11 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.persistence.OptimisticLockException;
-import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +21,8 @@ import com.itacademy.jd2.po.hotel.dao.api.filter.RoomFilter;
 import com.itacademy.jd2.po.hotel.dao.api.filter.TaskFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
 import com.itacademy.jd2.po.hotel.dao.api.model.ITask;
-import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 import com.itacademy.jd2.po.hotel.service.IRoomService;
 import com.itacademy.jd2.po.hotel.service.ITaskService;
-import com.itacademy.jd2.po.hotel.service.IUserAccountService;
 import com.itacademy.jd2.po.hotel.web.converter.RoomToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.TaskToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.dto.RoomDTO;
@@ -50,8 +45,6 @@ public class TodayTaskController extends AbstractController<TaskDTO, TaskFilter>
     @Autowired
     private RoomToDTOConverter roomToDTOConverter;
     @Autowired
-    private IUserAccountService userAccountService;
-    @Autowired
     private IRoomService roomService;
 
     @RequestMapping(method = { RequestMethod.POST, RequestMethod.GET })
@@ -71,7 +64,7 @@ public class TodayTaskController extends AbstractController<TaskDTO, TaskFilter>
         final ListDTO<RoomDTO> brokenRoomsListDTO = getBrokenRooms();
 
         final HashMap<String, Object> models = new HashMap<>();
-        loadCommonFormAnswerables(models);
+        loadCommonFormEmployeeAccounts(models);
         models.put("dirtyRooms", dirtyRoomsListDTO);
         models.put("brokenRooms", brokenRoomsListDTO);
         models.put(ListDTO.SESSION_ATTR_NAME, listDTO);
@@ -107,13 +100,6 @@ public class TodayTaskController extends AbstractController<TaskDTO, TaskFilter>
             roomService.save(entity);
         }
         return "redirect:/todaytask";
-    }
-
-    private void loadCommonFormAnswerables(final Map<String, Object> hashMap) {
-        final Map<Integer, String> answerablesMap = userAccountService.getAll().stream()
-                .collect(Collectors.toMap(IUserAccount::getId, IUserAccount::getEmail));
-        hashMap.put("answerableChoices", answerablesMap);
-
     }
 
     private TaskSearchDTO getSearchDTO(final HttpServletRequest req) {

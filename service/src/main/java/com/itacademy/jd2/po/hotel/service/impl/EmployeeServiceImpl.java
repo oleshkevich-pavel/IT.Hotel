@@ -54,25 +54,29 @@ public class EmployeeServiceImpl implements IEmployeeService {
         userAccount.setUpdated(modifiedOn);
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
         entity.setUpdated(modifiedOn);
+        try {
+            if (userAccount.getId() == null) {
+                userAccount.setCreated(modifiedOn);
+                LOGGER.info("new saved entity: {}", userAccount);
+                userAccountDao.insert(userAccount);
 
-        if (userAccount.getId() == null) {
-            userAccount.setCreated(modifiedOn);
-            LOGGER.info("new saved entity: {}", userAccount);
-            userAccountDao.insert(userAccount);
+                entity.setCreated(modifiedOn);
+                entity.setId(userAccount.getId());
+                entity.setUserAccount(userAccount);
+                LOGGER.info("new saved entity: {}", entity);
+                employeeDao.insert(entity);
 
-            entity.setCreated(modifiedOn);
-            entity.setId(userAccount.getId());
-            entity.setUserAccount(userAccount);
-            LOGGER.info("new saved entity: {}", entity);
-            employeeDao.insert(entity);
+                userAccount.setEmployee(entity);
 
-            userAccount.setEmployee(entity);
-
-        } else {
-            LOGGER.info("updated entity: {}", userAccount);
-            userAccountDao.update(userAccount);
-            LOGGER.info("updated entity: {}", entity);
-            employeeDao.update(entity);
+            } else {
+                LOGGER.info("updated entity: {}", userAccount);
+                userAccountDao.update(userAccount);
+                LOGGER.info("updated entity: {}", entity);
+                employeeDao.update(entity);
+            }
+        } catch (PersistenceException e) {
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
     }
 

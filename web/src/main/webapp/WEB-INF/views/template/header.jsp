@@ -17,6 +17,7 @@
 						<ul id="dropdown2" class="dropdown-content">
 							<sec:authorize access="hasRole('ROLE_GUEST')">
 								<li><a href="${baseUrl}/booking/mybooking"><mytaglib:i18n key="myBookings" /></a></li>
+								<li><a href="${baseUrl}/bookedmaintenance/mymaintenance"><mytaglib:i18n key="myMaintenance" /></a></li>
 								<li class="divider"></li>
 								<li><a href="${baseUrl}/guest/myprofile"><mytaglib:i18n	key="header.editProfile" /></a></li>
 							</sec:authorize>
@@ -91,7 +92,7 @@
 	<div class="nav-content">
 		<div class="row">
 			<div class="col s2 center">
-				<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<ul id="dropdown1" class="dropdown-content">
 						<li><a href="${baseUrl}/guest"><mytaglib:i18n key="guests" /></a></li>
 						<li><a href="${baseUrl}/employee"><mytaglib:i18n key="employees" /></a></li>
@@ -115,10 +116,24 @@
 						<li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><mytaglib:i18n key="header.dbMenu" /><i
 								class="material-icons right">arrow_drop_down</i></a></li>
 					</ul>
-
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_RESEPTION')">
+					<ul id="dropdown1" class="dropdown-content">
+						<li><a href="${baseUrl}/guest"><mytaglib:i18n key="guests" /></a></li>
+						<li><a href="${baseUrl}/bookedmaintenance"><mytaglib:i18n key="bookedMaintenances" /></a></li>
+						<li><a href="${baseUrl}/booking"><mytaglib:i18n key="bookings" /></a></li>
+						<li class="divider"></li>
+						<li><a href="${baseUrl}/task"><mytaglib:i18n key="tasks" /></a></li>
+						<li class="divider"></li>
+						<li><a href="${baseUrl}/message"><mytaglib:i18n key="messages" /></a></li>
+					</ul>
+					<ul class="right">
+						<li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><mytaglib:i18n key="header.dbMenu" /><i
+								class="material-icons right">arrow_drop_down</i></a></li>
+					</ul>
 				</sec:authorize>
 				<sec:authorize access="!hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
-					<a href="${baseUrl}/"><mytaglib:i18n key="home" /></a>
+					<a href="${baseUrl}/"><mytaglib:i18n key="homepage" /></a>
 				</sec:authorize>
 			</div>
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
@@ -126,14 +141,14 @@
 					<a href="${baseUrl}/chess"><mytaglib:i18n key="chess" /></a>
 				</div>
 			</sec:authorize>
-			<sec:authorize access="!hasRole('ROLE_EMPLOYEE') ">
+		<%-- 	<sec:authorize access="!hasRole('ROLE_EMPLOYEE') "> --%>
 				<div class="col s2 center">
 					<a href="${baseUrl}/roomsearch"><mytaglib:i18n key="roomSearch" /></a>
 				</div>
 				<div class="col s2 center">
 					<a href="${baseUrl}/maintenancesearch"><mytaglib:i18n key="maintenanceSearch" /></a>
 				</div>
-			</sec:authorize>
+		<%-- 	</sec:authorize> --%>
 			<div class="col s2 center">
 				<a href="${baseUrl}/gallery"><mytaglib:i18n key="gallery" /></a>
 			</div>

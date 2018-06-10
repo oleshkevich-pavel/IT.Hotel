@@ -12,6 +12,7 @@
   </c:otherwise>
 </c:choose>
 
+
 <c:if test="${'PersistenceException' eq error}">
 	<h5 class="header red-text"><mytaglib:i18n key="employee.persistenceException" /></h5>
 </c:if>
@@ -28,7 +29,7 @@
                 <label for="userAccount.email"><mytaglib:i18n key="email" /></label>
             </div>
         </div>
-        <div class="row">
+         <div class="row">
             <div class="input-field col s12">
                 <form:input path="userAccount.password" type="password" disabled="${readonly}" />
                 <form:errors path="userAccount.password" cssClass="red-text" />
@@ -110,7 +111,7 @@
                 </c:if>
             </div>
             <div class="col s3">
-                <a class="btn waves-effect waves-light right" href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
+                <a class="btn waves-effect waves-light right" href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
                 </a>
             </div>
         </div>

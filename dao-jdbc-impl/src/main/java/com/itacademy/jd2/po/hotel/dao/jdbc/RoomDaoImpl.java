@@ -29,8 +29,8 @@ public class RoomDaoImpl extends AbstractDaoImpl<IRoom, Integer> implements IRoo
     public void insert(final IRoom entity) {
         executeStatement(
                 new PreparedStatementAction<IRoom>(String.format(
-                        "insert into %s (number, floor, type, accomodation, view, "
-                                + "actual_price, desription, dirty, broken, created, updated) values(?,?,?,?,?,?,?,?,?,?,?)",
+                        "insert into %s (number, floor, type, accomodation, view, actual_price, "
+                        + "desription, dirty, broken, created, updated) values(?,?,?,?,?,?,?,?,?,?,?)",
                         getTableName()), true) {
                     @Override
                     public IRoom doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {

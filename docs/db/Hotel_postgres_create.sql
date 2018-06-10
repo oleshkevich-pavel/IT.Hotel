@@ -7,6 +7,8 @@ CREATE TABLE "room" (
 	"view" character varying(50) NOT NULL,
 	"actual_price" numeric(12,2) NOT NULL,
 	"description" character varying(500) NOT NULL,
+	"dirty" BOOLEAN NOT NULL,
+	"broken" BOOLEAN NOT NULL,
 	"created" TIMESTAMP NOT NULL,
 	"updated" TIMESTAMP NOT NULL,
 	CONSTRAINT room_pk PRIMARY KEY ("id")
@@ -92,10 +94,9 @@ CREATE TABLE "booking" (
 
 CREATE TABLE "booked_maintenance" (
 	"id" serial NOT NULL,
-	"room_id" integer NOT NULL,
 	"user_account_id" integer NOT NULL,
 	"maintenance_id" integer NOT NULL,
-	"time" TIMESTAMP NOT NULL,
+	"time" TIMESTAMP,
 	"price" numeric(12,2) NOT NULL,
 	"created" TIMESTAMP NOT NULL,
 	"updated" TIMESTAMP NOT NULL,
@@ -128,6 +129,7 @@ CREATE TABLE "task" (
 CREATE TABLE "booking_status" (
 	"id" serial NOT NULL,
 	"name" character varying(50) NOT NULL UNIQUE,
+	"color" character varying(30) NOT NULL,
 	"created" TIMESTAMP NOT NULL,
 	"updated" TIMESTAMP NOT NULL,
 	CONSTRAINT booking_status_pk PRIMARY KEY ("id")
@@ -156,6 +158,7 @@ CREATE TABLE "maintenance" (
 	"name" character varying(50) NOT NULL,
 	"actual_price" numeric(12,2) NOT NULL,
 	"available" BOOLEAN NOT NULL,
+	"photo_link" character varying(300),
 	"created" TIMESTAMP NOT NULL,
 	"updated" TIMESTAMP NOT NULL,
 	CONSTRAINT maintenance_pk PRIMARY KEY ("id")
@@ -242,9 +245,8 @@ ALTER TABLE "booking" ADD CONSTRAINT "booking_fk0" FOREIGN KEY ("booking_status_
 ALTER TABLE "booking" ADD CONSTRAINT "booking_fk1" FOREIGN KEY ("room_id") REFERENCES "room"("id");
 ALTER TABLE "booking" ADD CONSTRAINT "booking_fk2" FOREIGN KEY ("user_account_id") REFERENCES "user_account"("id");
 
-ALTER TABLE "booked_maintenance" ADD CONSTRAINT "booked_maintenance_fk0" FOREIGN KEY ("room_id") REFERENCES "room"("id");
-ALTER TABLE "booked_maintenance" ADD CONSTRAINT "booked_maintenance_fk1" FOREIGN KEY ("user_account_id") REFERENCES "user_account"("id");
-ALTER TABLE "booked_maintenance" ADD CONSTRAINT "booked_maintenance_fk2" FOREIGN KEY ("maintenance_id") REFERENCES "maintenance"("id");
+ALTER TABLE "booked_maintenance" ADD CONSTRAINT "booked_maintenance_fk0" FOREIGN KEY ("user_account_id") REFERENCES "user_account"("id");
+ALTER TABLE "booked_maintenance" ADD CONSTRAINT "booked_maintenance_fk1" FOREIGN KEY ("maintenance_id") REFERENCES "maintenance"("id");
 
 ALTER TABLE "task" ADD CONSTRAINT "task_fk0" FOREIGN KEY ("answerable_id") REFERENCES "user_account"("id");
 ALTER TABLE "task" ADD CONSTRAINT "task_fk1" FOREIGN KEY ("creator_id") REFERENCES "user_account"("id");

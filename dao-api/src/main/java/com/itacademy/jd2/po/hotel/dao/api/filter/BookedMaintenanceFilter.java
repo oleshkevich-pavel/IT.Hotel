@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class BookedMaintenanceFilter extends AbstractFilter {
 
-    private Integer roomNumber;
-
     private Integer userAccountId;
 
     private String userAccountEmail;
@@ -20,19 +18,9 @@ public class BookedMaintenanceFilter extends AbstractFilter {
 
     private Double priceMax;
 
-    private boolean fetchRoom;
-
     private boolean fetchUserAccount;
 
     private boolean fetchMaintenance;
-
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(final Integer roomNumber) {
-        this.roomNumber = roomNumber;
-    }
 
     public Integer getUserAccountId() {
         return userAccountId;
@@ -88,14 +76,6 @@ public class BookedMaintenanceFilter extends AbstractFilter {
 
     public void setPriceMax(final Double priceMax) {
         this.priceMax = priceMax;
-    }
-
-    public boolean getFetchRoom() {
-        return fetchRoom;
-    }
-
-    public void setFetchRoom(final boolean fetchRoom) {
-        this.fetchRoom = fetchRoom;
     }
 
     public boolean getFetchUserAccount() {

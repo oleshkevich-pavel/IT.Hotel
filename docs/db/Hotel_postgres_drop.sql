@@ -20,8 +20,6 @@ ALTER TABLE "booked_maintenance" DROP CONSTRAINT IF EXISTS "booked_maintenance_f
 
 ALTER TABLE "booked_maintenance" DROP CONSTRAINT IF EXISTS "booked_maintenance_fk1";
 
-ALTER TABLE "booked_maintenance" DROP CONSTRAINT IF EXISTS "booked_maintenance_fk2";
-
 ALTER TABLE "task" DROP CONSTRAINT IF EXISTS "task_fk0";
 
 ALTER TABLE "task" DROP CONSTRAINT IF EXISTS "task_fk1";

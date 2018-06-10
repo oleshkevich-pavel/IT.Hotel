@@ -2,10 +2,8 @@ package com.itacademy.jd2.po.hotel.web.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.itacademy.jd2.po.hotel.web.validator.TodayOrFuture;
@@ -18,12 +16,12 @@ public class GuestBookingDTO {
     private Integer roomNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @TodayOrFuture
+//s    @TodayOrFuture
     @NotNull
     private Date checkIn;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @TodayOrFuture
+ //   @TodayOrFuture
     @NotNull
     private Date checkOut;
 

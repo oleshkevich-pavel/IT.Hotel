@@ -32,13 +32,18 @@ public class PhotoLinkServiceImpl implements IPhotoLinkService {
     public void save(final IPhotoLink entity) throws PersistenceException {
         Date modifiedOn = new Date();
         entity.setUpdated(modifiedOn);
-        if (entity.getId() == null) {
-            entity.setCreated(modifiedOn);
-            LOGGER.info("new saved entity: {}", entity);
-            dao.insert(entity);
-        } else {
-            LOGGER.info("updated entity: {}", entity);
-            dao.update(entity);
+        try {
+            if (entity.getId() == null) {
+                entity.setCreated(modifiedOn);
+                LOGGER.info("new saved entity: {}", entity);
+                dao.insert(entity);
+            } else {
+                LOGGER.info("updated entity: {}", entity);
+                dao.update(entity);
+            }
+        } catch (PersistenceException e) {
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
     }
 

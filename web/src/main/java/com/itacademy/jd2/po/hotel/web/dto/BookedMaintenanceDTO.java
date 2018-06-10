@@ -8,14 +8,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.itacademy.jd2.po.hotel.web.validator.TodayOrFutureOrNull;
+
 public class BookedMaintenanceDTO {
 
     private Integer id;
-
-    @NotNull
-    private Integer roomId;
-
-    private Integer roomNumber;
 
     @NotNull
     private Integer userAccountId;
@@ -27,8 +24,11 @@ public class BookedMaintenanceDTO {
 
     private String maintenanceName;
 
+    @TodayOrFutureOrNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
+    private Date date;
+
+    @DateTimeFormat(pattern = "hh:mm a")
     private Date time;
 
     @NotNull
@@ -45,22 +45,6 @@ public class BookedMaintenanceDTO {
 
     public void setId(final Integer id) {
         this.id = id;
-    }
-
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(final Integer roomId) {
-        this.roomId = roomId;
-    }
-
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(final Integer roomNumber) {
-        this.roomNumber = roomNumber;
     }
 
     public Integer getUserAccountId() {
@@ -93,6 +77,14 @@ public class BookedMaintenanceDTO {
 
     public void setMaintenanceName(final String maintenanceName) {
         this.maintenanceName = maintenanceName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(final Date date) {
+        this.date = date;
     }
 
     public Date getTime() {

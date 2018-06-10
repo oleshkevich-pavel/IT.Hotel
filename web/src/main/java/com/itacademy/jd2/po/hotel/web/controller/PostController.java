@@ -62,7 +62,6 @@ public class PostController extends AbstractController<PostDTO, PostFilter> {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView showForm() {
-
         final Map<String, Object> hashMap = new HashMap<>();
         final PostDTO dto = new PostDTO();
         hashMap.put("formModel", dto);

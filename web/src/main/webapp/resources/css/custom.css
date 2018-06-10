@@ -1,6 +1,6 @@
 body {
-	background-image:
-		url(http://southeastinternational.com/wp-content/uploads/2017/04/Buy-a-Hotel-Chain-or-Independent-.jpg);
+	background-image: url(../img/background.jpg);
+		/* url(http://southeastinternational.com/wp-content/uploads/2017/04/Buy-a-Hotel-Chain-or-Independent-.jpg); */
 	background-size: 100% 100%;
 	background-attachment: fixed;
 	display: flex;
@@ -24,6 +24,7 @@ div.fix_block {
 }
 
 .page-footer {
+	background-image:url(../img/footer-background.jpg);
 	background-color: #7b7596;
 }
 
@@ -31,7 +32,8 @@ nav {
 	background-color: #6a597b;
 	background-image:
 		/* 	url(http://www.setwalls.ru/pic/201310/2560x1600/setwalls.ru-63657.jpg); */
-		url(https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1aPo6an92OjAD2tRDev6OHCBPcCTY8AE0);
+		/* url(https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1aPo6an92OjAD2tRDev6OHCBPcCTY8AE0); */
+		url(../img/header-background.jpg);
 }
 
 .btn, .btn-large, .btn-small {

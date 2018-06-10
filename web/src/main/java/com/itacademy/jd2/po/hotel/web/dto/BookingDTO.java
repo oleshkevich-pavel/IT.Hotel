@@ -25,12 +25,12 @@ public class BookingDTO implements Comparable<BookingDTO> {
     private String userAccountEmail;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @TodayOrFuture
+ //   @TodayOrFuture
     @NotNull
     private Date checkIn;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @TodayOrFuture
+ //   @TodayOrFuture
     @NotNull
     private Date checkOut;
 

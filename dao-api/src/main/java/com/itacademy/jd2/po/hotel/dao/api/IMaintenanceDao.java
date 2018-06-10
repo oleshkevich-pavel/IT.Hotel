@@ -10,4 +10,6 @@ public interface IMaintenanceDao extends IBaseDao<IMaintenance, Integer> {
     List<IMaintenance> find(MaintenanceFilter filter);
 
     long getCount(MaintenanceFilter filter);
+
+    Double getMaxPrice();
 }

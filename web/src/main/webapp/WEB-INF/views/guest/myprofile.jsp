@@ -69,9 +69,8 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right"
-					href="javascript:history.back();"><i
-					class="material-icons left">reply</i><mytaglib:i18n key="back" /> </a>
+				<a class="btn waves-effect waves-light right" href="${pageContext.request.contextPath}"><i
+					class="material-icons left">reply</i><mytaglib:i18n key="homepage" /> </a>
 			</div>
 		</div>
 	</form:form>

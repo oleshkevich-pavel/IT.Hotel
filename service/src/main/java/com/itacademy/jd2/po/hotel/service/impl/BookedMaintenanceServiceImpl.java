@@ -14,12 +14,14 @@ import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.service.IBookedMaintenanceService;
 
 @Service
-public class BookedMaintenanceServiceImpl implements IBookedMaintenanceService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookedMaintenanceServiceImpl.class);
+public class BookedMaintenanceServiceImpl
+        /*extends AbstractServiceImpl<IBookedMaintenance, IBookedMaintenanceDao, Integer, BookedMaintenanceFilter>*/
+        implements IBookedMaintenanceService {
 
     @Autowired
     private IBookedMaintenanceDao dao;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookedMaintenanceServiceImpl.class);
 
     @Override
     public IBookedMaintenance createEntity() {

@@ -89,4 +89,9 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
         LOGGER.debug("total count maintenance entities in DB: {}", all.size());
         return all;
     }
+
+    @Override
+    public Double getMaxPrice() {
+        return dao.getMaxPrice();
+    }
 }

@@ -33,7 +33,7 @@
 				<mytaglib:i18n key="search" /><i class="material-icons right">search</i>
 			</button>
 			<%-- <a class="btn waves-effect waves-light left"
-				href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a> --%>
+				href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" /></a> --%>
 		</div>
 	</form:form>
 </div>
@@ -86,7 +86,7 @@
 				<c:if test="${prevfloor ne floor}">
 					<tr class="floor" bgcolor="#cbc8d5">
 						<td colspan="${fn:length(calendar)+1}"><c:out
-								value="${floor}" /> floor</td>
+								value="${floor}" /> <mytaglib:i18n key="floor" /></td>
 					</tr>
 				</c:if>
 				<c:set var="prevfloor" value="${floor}" />
@@ -95,11 +95,11 @@
 					<c:forEach var="booking" items="${entry.value}"	varStatus="loopCounter">
 						<c:choose>
 							<c:when test="${booking==null}">
-								<td></td>
+								<td onclick="openWin('${baseUrl}/booking/add')"></td>
 							</c:when>
 							<c:otherwise>
-								<td colspan="${booking.colspan}" style="background-color:${booking.bookingStatusColor}" data-tooltip="<mytaglib:i18n key="guest" />: ${booking.userAccountEmail}<br><mytaglib:i18n key="period" />: ${booking.period}">
-										<c:out value="${booking.bookingStatusName}" />
+								<td onclick="openWin('${baseUrl}/booking/${booking.id}/edit')" colspan="${booking.colspan}" style="background-color:${booking.bookingStatusColor}" data-tooltip="<mytaglib:i18n key="guest" />: ${booking.userAccountEmail}<br><mytaglib:i18n key="period" />: ${booking.period}">
+										<%-- <a href="${baseUrl}/booking/${booking.id}/edit"> <font color="#000000"> --%><c:out value="${booking.bookingStatusName}" /><%-- </font> </a> --%>
 								</td>
 							</c:otherwise>
 						</c:choose>
@@ -110,6 +110,12 @@
 	</table>
 </div>
 <div id="tooltip"></div>
+
+<script>
+ function openWin(url) {
+   myWin= open(url);
+ }
+</script>
 
 <script>
     $("[data-tooltip]").mousemove(function (eventObject) {
@@ -154,14 +160,3 @@ $('.floor').click(function(){
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-

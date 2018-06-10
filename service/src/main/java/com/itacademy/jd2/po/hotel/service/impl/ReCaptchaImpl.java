@@ -23,7 +23,7 @@ public class ReCaptchaImpl implements IReCaptchaService {
     private static final String SITE_KEY = "6LcjfVoUAAAAANHUeelMXznTDWOMpjVUS6x3sWBg";
     private static final String SECRET_KEY = "6LcjfVoUAAAAAATyxk0gyV3RtP3SCX5x5n_8BRN4";
     private static final String SITE_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-    /* public static final String ERROR_STRING = "Captcha is invalid!"; */
+   // public static final String ERROR_STRING = "Captcha is invalid!";
 
     public boolean verify(final String gRecaptchaResponse) {
         if (gRecaptchaResponse == null || gRecaptchaResponse.length() == 0) {
@@ -66,9 +66,12 @@ public class ReCaptchaImpl implements IReCaptchaService {
             LOGGER.info("Response: " + jsonObject);
 
             boolean success = jsonObject.getBoolean("success");
+            if (!success) {
+                LOGGER.info(ERROR_STRING);
+            }
             return success;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.warn(e.getMessage());
             return false;
         }
     }

@@ -20,15 +20,6 @@
         <form:input path="id" type="hidden" />
         <div class="row">
             <div class="input-field col s12">
-                <form:select path="roomId" disabled="${readonly}">
-                    <form:options items="${roomChoices}" />
-                </form:select>
-                <form:errors path="roomId" cssClass="red-text" />
-                <label for="roomId"><mytaglib:i18n key="roomNumber" /></label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
                 <form:select path="userAccountId" disabled="${readonly}">
                     <form:options items="${guestAccountChoices}" />
                 </form:select>
@@ -47,11 +38,18 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <form:input path="time" type="text" disabled="${readonly}" cssClass="datepicker" />
-                <form:errors path="time" cssClass="red-text" />
-                <label for="time"><mytaglib:i18n key="bookedMaintenance.time" /></label>
+                <form:input path="date" type="text" disabled="${readonly}" cssClass="datepicker" />
+                <form:errors path="date" cssClass="red-text" />
+                <label for="date"><mytaglib:i18n key="bookedMaintenance.date" /></label>
             </div>
-        </div>         
+        </div>  
+        <div class="row">
+			<div class="input-field col s12">
+				<form:input path="time" type="text" disabled="${readonly}" cssClass="timepicker" />
+				<form:errors path="time" cssClass="red-text" />
+				<label for="time"><mytaglib:i18n key="bookedMaintenance.time" /></label>	
+			</div>
+		</div>        
         <div class="row">
             <div class="input-field col s12">
                 <form:input path="price" type="text" disabled="${readonly}" />
@@ -67,7 +65,7 @@
                 </c:if>
             </div>
             <div class="col s3">
-                <a class="btn waves-effect waves-light right" href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="save" />
+                <a class="btn waves-effect waves-light right" href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
                 </a>
             </div>
         </div>

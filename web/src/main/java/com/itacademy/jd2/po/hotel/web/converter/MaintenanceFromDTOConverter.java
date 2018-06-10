@@ -21,6 +21,7 @@ public class MaintenanceFromDTOConverter implements Function<MaintenanceDTO, IMa
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setActualPrice(dto.getActualPrice());
+        entity.setPhotoLink(dto.getPhotoLink());
         entity.setAvailable(dto.isAvailable());
         return entity;
     }

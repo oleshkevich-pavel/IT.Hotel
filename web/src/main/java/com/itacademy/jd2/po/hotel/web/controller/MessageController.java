@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -35,6 +36,7 @@ public class MessageController extends AbstractController<MessageDTO, MessageFil
 
     private static final String SEARCH_FORM_MODEL = "searchFormModel";
     private static final String SEARCH_DTO = MessageController.class.getSimpleName() + "_SEACH_DTO";
+    private static final Object MESSAGING_ERROR = "Message was saved but not sended.";
 
     @Autowired
     private IMessageService messageService;
@@ -105,7 +107,14 @@ public class MessageController extends AbstractController<MessageDTO, MessageFil
             return new ModelAndView("message.edit", hashMap);
         } else {
             final IMessage entity = fromDTOConverter.apply(formModel);
-            messageService.save(entity);
+            try {
+                messageService.save(entity);
+            } catch (MessagingException e) {
+                final Map<String, Object> hashMap = new HashMap<>();
+                hashMap.put("formModel", formModel);
+                hashMap.put("error", MESSAGING_ERROR);
+                return new ModelAndView("message.list", hashMap);
+            }
             return "redirect:/message";
         }
     }

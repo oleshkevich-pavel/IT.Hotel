@@ -3,6 +3,8 @@ package com.itacademy.jd2.po.hotel.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.itacademy.jd2.po.hotel.dao.api.IMessageDao;
 import com.itacademy.jd2.po.hotel.dao.api.filter.MessageFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IMessage;
+import com.itacademy.jd2.po.hotel.service.IEmailSenderService;
 import com.itacademy.jd2.po.hotel.service.IMessageService;
 
 @Service
@@ -19,6 +22,8 @@ public class MessageServiceImpl implements IMessageService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageServiceImpl.class);
     @Autowired
     private IMessageDao dao;
+    @Autowired
+    private IEmailSenderService emailSenderService;
 
     @Override
     public IMessage createEntity() {
@@ -26,13 +31,14 @@ public class MessageServiceImpl implements IMessageService {
     }
 
     @Override
-    public void save(final IMessage entity) {
+    public void save(final IMessage entity) throws MessagingException {
         final Date modifiedOn = new Date();
         entity.setUpdated(modifiedOn);
         if (entity.getId() == null) {
             entity.setCreated(modifiedOn);
             LOGGER.info("new saved entity: {}", entity);
             dao.insert(entity);
+            emailSenderService.sendEmailFromWebSite(entity);
         } else {
             LOGGER.info("updated entity: {}", entity);
             dao.update(entity);
@@ -80,5 +86,10 @@ public class MessageServiceImpl implements IMessageService {
         final List<IMessage> all = dao.getAllFullInfo();
         LOGGER.debug("total count message entities in DB: {}", all.size());
         return all;
+    }
+
+    @Override
+    public void setEmailSenderService(final IEmailSenderService emailSenderService) {
+        this.emailSenderService = emailSenderService;
     }
 }

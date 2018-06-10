@@ -70,19 +70,21 @@
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<div id="booking-search-slider"
+						<div id="room-search-slider"
 							class="noUi-target noUi-ltr noUi-horizontal"></div>
-						<label for="booking-search"><mytaglib:i18n
+						<label for="room-search-slider"><mytaglib:i18n
 								key="priceRange" /></label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s6">
-						<form:input path="priceMin" type="number" id="input-price-min" />
+						<form:input path="priceMin" type="number" id="input-price-min"
+							disabled="${slider.valueMax==0}" />
 						<label for="priceMin"><mytaglib:i18n key="priceMin" /></label>
 					</div>
 					<div class="input-field col s6">
-						<form:input path="priceMax" type="number" id="input-price-max" />
+						<form:input path="priceMax" type="number" id="input-price-max"
+							disabled="${slider.valueMax==0}" />
 						<label for="priceMax"><mytaglib:i18n key="priceMax" /></label>
 					</div>
 				</div>
@@ -176,11 +178,6 @@
 			<mytaglib:i18n key="roomSearch.noRoomsFound" />
 		</h4>
 	</c:if>
-	<c:if test="${'PersistenceException' eq error}">
-		<h5 class="header red-text">
-			<mytaglib:i18n key="roomSearch.persistenceException" />
-		</h5>
-	</c:if>
 	<mytags:paging />
 	<c:forEach var="entry" items="${roomsWithPhotoLinks}">
 		<c:set var="room" value="${entry.key}" />
@@ -198,7 +195,7 @@
 								<c:if test="${entry.value.totalCount==0}">
 									<div class="caption center-align">
 										<h3>
-											<mytaglib:i18n key="noPhotos" />
+											<mytaglib:i18n key="roomSearch.noPhotos" />
 											<c:out value="${room.number}" />
 										</h3>
 									</div>
@@ -213,31 +210,49 @@
 						</p>
 					</div>
 					<div class="card-action">
-						<a href="${pageContext.request.contextPath}/roominformation/${room.id}">
-					    	<mytaglib:i18n key="roomSearch.moreRoomDetails" /></a>
-						<sec:authorize access="hasRole('ROLE_GUEST')">
-<%-- 					    	<fmt:formatDate var="checkIn" pattern="yyyy-MM-dd" value="${searchFormModel.checkIn}" />
+						<table>
+							<tr>
+								<td><a
+									href="${pageContext.request.contextPath}/roominformation/${room.id}">
+										<mytaglib:i18n key="roomSearch.moreRoomDetails" />
+								</a></td>
+								<td><sec:authorize access="hasRole('ROLE_GUEST')">
+										<%-- 					    	<fmt:formatDate var="checkIn" pattern="yyyy-MM-dd" value="${searchFormModel.checkIn}" />
 							<fmt:formatDate var="checkOut" pattern="yyyy-MM-dd"	value="${searchFormModel.checkOut}" />
-							<a href="${baseUrl}/add?roomId=${room.id}&checkin=${checkIn}&checkout=${checkOut}"><mytaglib:i18n key="roomSearch.book" /></a> --%> 			
-						<form:form method="POST" action="${pageContext.request.contextPath}/booking/newbooking" modelAttribute="formModel">
-								<form:input path="roomId" value="${room.id}" type="hidden" />
-								<fmt:formatDate var="checkIn" pattern="yyyy-MM-dd"
-									value="${searchFormModel.checkIn}" />
-								<fmt:formatDate var="checkOut" pattern="yyyy-MM-dd"
-									value="${searchFormModel.checkOut}" />
-								<form:input path="checkIn" value="${checkIn}" type="hidden" />
-								<form:input path="checkOut" value="${checkOut}" type="hidden" />
-								<button class="btn waves-effect waves-light right" type="submit">
-									<mytaglib:i18n key="roomSearch.book" />
-									<i class="material-icons right">add_shopping_cart</i>
-								</button>
-							</form:form>
-						</sec:authorize>
-						<sec:authorize access="isAnonymous()">
-							<a href="${pageContext.request.contextPath}/login"><mytaglib:i18n key="roomSearch.book" /></a>
-						</sec:authorize>
+							<a href="${baseUrl}/add?roomId=${room.id}&checkin=${checkIn}&checkout=${checkOut}"><mytaglib:i18n key="roomSearch.book" /></a> --%>
+										<form:form method="POST"
+											action="${pageContext.request.contextPath}/booking/newbooking"
+											modelAttribute="formModel">
+											<form:input path="roomId" value="${room.id}" type="hidden" />
+											<fmt:formatDate var="checkIn" pattern="yyyy-MM-dd"
+												value="${searchFormModel.checkIn}" />
+											<fmt:formatDate var="checkOut" pattern="yyyy-MM-dd"
+												value="${searchFormModel.checkOut}" />
+											<form:input path="checkIn" value="${checkIn}" type="hidden" />
+											<form:input path="checkOut" value="${checkOut}" type="hidden" />
+
+											<button class="btn waves-effect waves-light right"
+												type="submit">
+												<mytaglib:i18n key="roomSearch.book" />
+												<i class="material-icons right">add_shopping_cart</i>
+											</button>
+										</form:form>
+									</sec:authorize>
+									<sec:authorize access="isAnonymous()">
+										<a href="${pageContext.request.contextPath}/login"><mytaglib:i18n
+												key="roomSearch.book" /></a>
+									</sec:authorize>
+									<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_RESEPTION')">
+										<a href="${pageContext.request.contextPath}/booking/add"><mytaglib:i18n
+												key="roomSearch.book" /></a>
+									</sec:authorize>
+									</td>
+							</tr>
+						</table>
 						<h5 align="right">
-							<mytaglib:i18n key="roomPrice" />: <c:out value="${room.actualPrice}" />
+							<mytaglib:i18n key="roomPrice" />
+							:
+							<c:out value="${room.actualPrice}" />
 						</h5>
 					</div>
 				</div>
@@ -248,9 +263,10 @@
 	<mytags:paging />
 
 </div>
+
 <script>
 			var valueMin = document.getElementById('input-price-min');
-			bookingSearchSlider.noUiSlider.on('update',
+			roomSearchSlider.noUiSlider.on('update',
 					function(values, handle) {
 						var value = values[handle];
 						if (handle) {
@@ -261,9 +277,9 @@
 					});
 		</script>
 <script>
-					var bookingSearchSlider = document
-					.getElementById('booking-search-slider');
-			noUiSlider.create(bookingSearchSlider, {
+					var roomSearchSlider = document
+					.getElementById('room-search-slider');
+			noUiSlider.create(roomSearchSlider, {
 				start : [ ${slider.valueMin}, ${slider.valueMax} ],
 				connect : true,
 				step : 1,
@@ -275,7 +291,7 @@
 			</script>
 <script>
 			var valueMax = document.getElementById('input-price-max');
-			bookingSearchSlider.noUiSlider.on('update',
+			roomSearchSlider.noUiSlider.on('update',
 					function(values, handle) {
 						var value = values[handle];
 						if (handle) {
@@ -285,9 +301,9 @@
 						}
 					});
 			priceMin.addEventListener('change', function() {
-				bookingSearchSlider.noUiSlider.set([ this.value, null ]);
+				roomSearchSlider.noUiSlider.set([ this.value, null ]);
 			});
 			priceMax.addEventListener('change', function() {
-				bookingSearchSlider.noUiSlider.set([ null, this.value ]);
+				roomSearchSlider.noUiSlider.set([ null, this.value ]);
 			});
 		</script>

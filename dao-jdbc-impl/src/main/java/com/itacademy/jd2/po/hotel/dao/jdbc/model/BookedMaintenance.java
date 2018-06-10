@@ -3,14 +3,12 @@ package com.itacademy.jd2.po.hotel.dao.jdbc.model;
 import java.util.Date;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
-import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 import com.itacademy.jd2.po.hotel.dao.api.model.IMaintenance;
-import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
+import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 
 public class BookedMaintenance extends BaseEntity implements IBookedMaintenance {
 
     private IUserAccount userAccount;
-    private IRoom room;
     private IMaintenance maintenance;
     private Date time;
     private Double price;
@@ -43,16 +41,6 @@ public class BookedMaintenance extends BaseEntity implements IBookedMaintenance 
     @Override
     public void setMaintenance(final IMaintenance maintenance) {
         this.maintenance = maintenance;
-    }
-
-    @Override
-    public IRoom getRoom() {
-        return room;
-    }
-
-    @Override
-    public void setRoom(final IRoom room) {
-        this.room = room;
     }
 
     @Override

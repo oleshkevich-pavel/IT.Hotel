@@ -31,4 +31,6 @@ public interface IMaintenanceService {
     IMaintenance getFullInfo(Integer id);
 
     List<IMaintenance> getAllFullInfo();
+
+    Double getMaxPrice();
 }

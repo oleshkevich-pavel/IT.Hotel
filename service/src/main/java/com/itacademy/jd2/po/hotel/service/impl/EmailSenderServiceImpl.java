@@ -13,6 +13,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +25,16 @@ import com.itacademy.jd2.po.hotel.service.IEmailSenderService;
 @Component
 public class EmailSenderServiceImpl implements IEmailSenderService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger("emailSenderLogger");
+
     @Autowired
     private Session mailSession;
 
-    private void sendEmail(final String to, final String subject, final String textBody, final String htmlBody) {
+    private void sendEmail(final String to, final String subject, final String textBody, final String htmlBody) throws MessagingException {
         final MimeMessage message = new MimeMessage(mailSession);
         try {
             message.setFrom(new InternetAddress(mailSession.getProperty("mail.from")));
-            final InternetAddress[] address = { new InternetAddress(to) };
+            final InternetAddress[] address = {new InternetAddress(to)};
             message.setRecipients(Message.RecipientType.TO, address);
             message.setSubject(subject);
             message.setSentDate(new Date());
@@ -45,14 +49,14 @@ public class EmailSenderServiceImpl implements IEmailSenderService {
             content.addBodyPart(htmlPart);
             message.setContent(content);
             Transport.send(message);
-        } catch (final MessagingException ex) {
-            ex.printStackTrace();
-            // TODO catch
+        } catch (final MessagingException e) {
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
     }
 
     @Override
-    public void sendEmailFromWebSite(final IMessage entity) {
+    public void sendEmailFromWebSite(final IMessage entity) throws MessagingException {
         final String name = entity.getName();
         final String phone = entity.getPhone();
         final String emailFrom = entity.getEmail();
@@ -62,12 +66,16 @@ public class EmailSenderServiceImpl implements IEmailSenderService {
                 phone, emailFrom, message);
         final String html = String.format("You have a message:<br> name: %s, phone: %s, email: %s<br><br> Message:\n%s",
                 name, phone, emailFrom, message);
-        sendEmail(mailSession.getProperty("mail.from"), subject, text, html);
-
+        try {
+            sendEmail(mailSession.getProperty("mail.from"), subject, text, html);
+            LOGGER.info("Message from website was sended to default email");
+        } catch (MessagingException e) {
+            throw e;
+        }
     }
 
     @Override
-    public void sendVerifyKey(final IUserAccount userAccount, final String verifyKey) {
+    public void sendVerifyKey(final IUserAccount userAccount, final String verifyKey) throws MessagingException {
         final String email = userAccount.getEmail();
         final String subject = "Verify key from Shmotel";
         final String name = userAccount.getFirstName() + " " + userAccount.getLastName();
@@ -79,7 +87,11 @@ public class EmailSenderServiceImpl implements IEmailSenderService {
         final String html = String.format("Dear %s, thanks for registering. <br> Your verify key: %s"
                 + "<br> You can enter it <a href=\"%s\">here</a>. Or you can go with link: <a href=\"%s\">%s</a>"
                 + "<br><br> Don't answer this e-mail, please! ", name, verifyKey, url, fullUrl, fullUrl);
-        sendEmail(email, subject, text, html);
-
+        try {
+            sendEmail(email, subject, text, html);
+            LOGGER.info("verify key {} was send to email {}", verifyKey, userAccount.getEmail());
+        } catch (MessagingException e) {
+            throw e;
+        }
     }
 }

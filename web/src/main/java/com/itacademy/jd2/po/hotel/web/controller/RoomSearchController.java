@@ -83,6 +83,7 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
         final Map<RoomDTO, ListDTO<PhotoLinkDTO>> roomsWithPhotoLinks = getRoomsWithFotoLinks(listRoomDTO);
 
         final HashMap<String, Object> models = new HashMap<>();
+        // кладем listRoomDTO для пагинации
         models.put(ListDTO.SESSION_ATTR_NAME, listRoomDTO);
         models.put("roomsWithPhotoLinks", roomsWithPhotoLinks);
         models.put(SEARCH_FORM_MODEL, searchDTO);
@@ -93,11 +94,14 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
 
     private Map<RoomDTO, ListDTO<PhotoLinkDTO>> getRoomsWithFotoLinks(final ListDTO<RoomDTO> listRoomDTO) {
         final Map<RoomDTO, ListDTO<PhotoLinkDTO>> roomsWithPhotoLinks = new TreeMap<RoomDTO, ListDTO<PhotoLinkDTO>>();
+        double discount = 0.00;
+        if (!AuthHelper.isUserAnonymous()) {
+            discount = guestService.getDiscount(AuthHelper.getLoggedUserId());
+        }
         for (int i = 0; i < listRoomDTO.getList().size(); i++) {
             final RoomDTO room = listRoomDTO.getList().get(i);
-            if (!AuthHelper.isUserAnonymous() && "[ROLE_GUEST]".equals(AuthHelper.getLoggedUserRole())) {
-                room.setActualPrice(getPriceWithDiscount(room));
-            }
+            Double roomPrice = room.getActualPrice();
+            room.setActualPrice(roomPrice * (1 - discount / 100));
             final Integer roomNumber = room.getNumber();
             final ListDTO<PhotoLinkDTO> listPhotoLinkDTO = getFiveFirstPhotoLinks(roomNumber);
             roomsWithPhotoLinks.put(room, listPhotoLinkDTO);
@@ -126,7 +130,7 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
             listRoomDTO.setTotalCount(allEntities.size());
             int page = listRoomDTO.getPage();
             int itemsPerPage = listRoomDTO.getItemsPerPage();
-            // paging
+            // paging на случай hibernate search
             for (int i = (page - 1) * itemsPerPage; i < Math.min(allEntities.size(), page * itemsPerPage); i++) {
                 entities.add(allEntities.get(i));
             }
@@ -145,30 +149,14 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
         return entities;
     }
 
-    private Double getPriceWithDiscount(final RoomDTO room) {
-        final IGuest guest = guestService.getFullInfo(AuthHelper.getLoggedUserId());
-        final IGuestStatus guestStatus = guest.getGuestStatus();
-        final Double roomPrice = room.getActualPrice() * (1 - guestStatus.getDiscount() / 100);
-        return roomPrice;
-    }
-
     private RoomFilter applyRoomFilter(final RoomSearchDTO searchDTO) {
         final RoomFilter filter = new RoomFilter();
-        /*
-         * final Calendar calendar = new
-         * GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR),
-         * Calendar.getInstance().get(Calendar.MONTH),
-         * Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-         */
-
         if (searchDTO.getCheckIn() != null) {
             filter.setCheckIn(searchDTO.getCheckIn());
-             // } else { searchDTO.setCheckIn(calendar.getTime());
         }
 
         if (searchDTO.getCheckOut() != null) {
             filter.setCheckOut(searchDTO.getCheckOut());
-             // } else { searchDTO.setCheckOut(calendar.getTime());
         }
 
         if (searchDTO.getAccomodation() != null) {
@@ -177,13 +165,29 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
         if (searchDTO.getView() != null) {
             filter.setView(searchDTO.getView());
         }
-        if (searchDTO.getPriceMin() != null) {
-            filter.setPriceMin(searchDTO.getPriceMin());
+        Double priceMin = searchDTO.getPriceMin();
+        if (priceMin != null) {
+            priceMin = getFilterPrice(priceMin);
+            filter.setPriceMin(priceMin);
         }
-        if (searchDTO.getPriceMax() != null) {
-            filter.setPriceMax(searchDTO.getPriceMax());
+        Double priceMax = searchDTO.getPriceMax();
+        if (priceMax != null) {
+            priceMax = getFilterPrice(priceMax);
+            filter.setPriceMax(priceMax);
         }
         return filter;
+    }
+
+    private Double getFilterPrice(Double price) {
+        if (!AuthHelper.isUserAnonymous()) {
+            double discount = guestService.getDiscount(AuthHelper.getLoggedUserId());
+            if (discount == 100) {
+                price = 0.00;
+            } else {
+                price = price * 100 / (100 - discount);
+            }
+        }
+        return price;
     }
 
     private ListDTO<PhotoLinkDTO> getFiveFirstPhotoLinks(final Integer roomNumber) {
@@ -205,6 +209,12 @@ public class RoomSearchController extends AbstractController<RoomDTO, RoomFilter
 
     private Slider getSlider(final RoomSearchDTO searchDTO) {
         Double max = roomService.getMaxPrice();
+
+        if (!AuthHelper.isUserAnonymous()) {
+            double discount = guestService.getDiscount(AuthHelper.getLoggedUserId());
+            max = Math.ceil(max * (1 - discount / 100));
+        }
+
         if (max == null) {
             max = 100.00;
         }

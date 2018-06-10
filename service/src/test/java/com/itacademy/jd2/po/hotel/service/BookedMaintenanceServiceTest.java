@@ -33,7 +33,6 @@ public class BookedMaintenanceServiceTest extends AbstractTest {
         final IBookedMaintenance entityFromDB = getBookedMaintenanceService().getFullInfo(entity.getId());
 
         assertEquals(entity.getId(), entityFromDB.getId());
-        assertEquals(entity.getRoom().getId(), entityFromDB.getRoom().getId());
         assertEquals(entity.getUserAccount().getId(), entityFromDB.getUserAccount().getId());
         assertEquals(entity.getMaintenance().getId(), entityFromDB.getMaintenance().getId());
         assertEquals(entity.getTime(), entityFromDB.getTime());
@@ -42,10 +41,9 @@ public class BookedMaintenanceServiceTest extends AbstractTest {
         assertEquals(entity.getUpdated(), entityFromDB.getUpdated());
 
         assertNotNull(entityFromDB.getId());
-        assertNotNull(entityFromDB.getRoom().getId());
         assertNotNull(entityFromDB.getUserAccount().getId());
         assertNotNull(entityFromDB.getMaintenance().getId());
-        assertNotNull(entityFromDB.getTime());
+//        assertNotNull(entityFromDB.getTime());
         assertNotNull(entityFromDB.getPrice());
         assertNotNull(entityFromDB.getCreated());
         assertNotNull(entityFromDB.getUpdated());
@@ -65,7 +63,6 @@ public class BookedMaintenanceServiceTest extends AbstractTest {
         final IBookedMaintenance updatedEntityFromDB = getBookedMaintenanceService().getFullInfo(entityFromDB.getId());
         assertEquals(entity.getId(), updatedEntityFromDB.getId());
         assertEquals(entity.getUserAccount().getId(), updatedEntityFromDB.getUserAccount().getId());
-        assertEquals(entity.getRoom().getId(), updatedEntityFromDB.getRoom().getId());
         assertEquals(entity.getMaintenance().getId(), updatedEntityFromDB.getMaintenance().getId());
         assertEquals(entity.getTime(), updatedEntityFromDB.getTime());
 
@@ -89,9 +86,8 @@ public class BookedMaintenanceServiceTest extends AbstractTest {
         for (final IBookedMaintenance entityFromDB : allEntities) {
             assertNotNull(entityFromDB.getId());
             assertNotNull(entityFromDB.getUserAccount().getId());
-            assertNotNull(entityFromDB.getRoom().getId());
             assertNotNull(entityFromDB.getMaintenance().getId());
-            assertNotNull(entityFromDB.getTime());
+//            assertNotNull(entityFromDB.getTime());
             assertNotNull(entityFromDB.getPrice());
             assertNotNull(entityFromDB.getCreated());
             assertNotNull(entityFromDB.getUpdated());
@@ -127,13 +123,11 @@ public class BookedMaintenanceServiceTest extends AbstractTest {
         List<IBookedMaintenance> all = getBookedMaintenanceService().find(bookedMaintenanceFilter);
         assertEquals(3, all.size());
 
-        bookedMaintenanceFilter.setFetchRoom(true);
         bookedMaintenanceFilter.setFetchUserAccount(true);
         bookedMaintenanceFilter.setFetchMaintenance(true);
         all = getBookedMaintenanceService().find(bookedMaintenanceFilter);
         assertEquals(3, all.size());
         for (final IBookedMaintenance bookedMaintenance : all) {
-            assertNotNull(bookedMaintenance.getRoom().getNumber());
             assertNotNull(bookedMaintenance.getUserAccount().getLastName());
             assertNotNull(bookedMaintenance.getMaintenance().getName());
         }

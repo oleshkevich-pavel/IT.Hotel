@@ -96,6 +96,17 @@ public abstract class AbstractController<DTO, FILTER extends AbstractFilter> {
         hashMap.put("guestAccountChoices", getSortedMapByValue(guestAccountsMap));
     }
 
+    protected void loadCommonFormGuestAndEmployeesAccounts(final Map<String, Object> hashMap) {
+        final List<IUserAccount> userAccountsList = userAccountService.getAllFullInfo();
+        final Map<Integer, String> guestAccountsMap = new HashMap<Integer, String>();
+        for (final IUserAccount userAccount : userAccountsList) {
+            if ((userAccount.getRole().name() == "ROLE_GUEST") || (userAccount.getRole().name() == "ROLE_EMPLOYEE")) {
+                guestAccountsMap.put(userAccount.getId(), userAccount.getEmail());
+            }
+        }
+        hashMap.put("guestAndEmployeeAccountChoices", getSortedMapByValue(guestAccountsMap));
+    }
+
     protected void loadCommonFormEmployeeAccounts(final Map<String, Object> hashMap) {
         final List<IUserAccount> userAccountsList = userAccountService.getAllFullInfo();
         final Map<Integer, String> guestAccountsMap = new HashMap<Integer, String>();
@@ -111,6 +122,14 @@ public abstract class AbstractController<DTO, FILTER extends AbstractFilter> {
         final Map<Integer, String> maintenancesMap = maintenanceService.getAllFullInfo().stream()
                 .collect(Collectors.toMap(IMaintenance::getId, IMaintenance::getName));
         hashMap.put("maintenanceChoices", getSortedMapByValue(maintenancesMap));
+    }
+
+    protected void loadCommonFormAvailableMaintenances(Map<String, Object> models) {
+        final Map<Integer, String> maintenancesMap = maintenanceService.getAllFullInfo().stream()
+                .filter(c -> c.isAvailable() == true)
+                .collect(Collectors.toMap(IMaintenance::getId, IMaintenance::getName));
+        // TODO убрать одинаковые строки
+        models.put("maintenanceChoices", getSortedMapByValue(maintenancesMap));
     }
 
     protected void loadCommonFormBookingStatuses(final Map<String, Object> hashMap) {

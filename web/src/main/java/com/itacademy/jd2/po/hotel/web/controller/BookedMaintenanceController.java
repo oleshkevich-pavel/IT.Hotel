@@ -22,9 +22,12 @@ import com.itacademy.jd2.po.hotel.dao.api.filter.BookedMaintenanceFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.service.IBookedMaintenanceService;
 import com.itacademy.jd2.po.hotel.web.converter.BookedMaintenanceFromDTOConverter;
+import com.itacademy.jd2.po.hotel.web.converter.BookedMaintenanceFromGBMDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.BookedMaintenanceToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.dto.BookedMaintenanceDTO;
+import com.itacademy.jd2.po.hotel.web.dto.GuestBookedMaintenanceDTO;
 import com.itacademy.jd2.po.hotel.web.dto.list.ListDTO;
+import com.itacademy.jd2.po.hotel.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/bookedmaintenance")
@@ -36,6 +39,8 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
     private BookedMaintenanceFromDTOConverter fromDTOConverter;
     @Autowired
     private BookedMaintenanceToDTOConverter toDTOConverter;
+    @Autowired
+    private BookedMaintenanceFromGBMDTOConverter bookedMaintenanceFromGBMDTOConverter;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(final HttpServletRequest req,
@@ -50,12 +55,11 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
 
         applySortAndOrder2Filter(listDTO, filter);
 
-        filter.setFetchRoom(true);
         filter.setFetchUserAccount(true);
         filter.setFetchMaintenance(true);
         final List<IBookedMaintenance> entities = bookedMaintenanceService.find(filter);
         listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-        // listDTO.setTotalCount(bookedMaintenanceService.getCount(filter));
+        listDTO.setTotalCount(bookedMaintenanceService.getCount(filter));
 
         final HashMap<String, Object> models = new HashMap<>();
         models.put(ListDTO.SESSION_ATTR_NAME, listDTO);
@@ -68,7 +72,7 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
         final Map<String, Object> hashMap = new HashMap<>();
         final BookedMaintenanceDTO dto = new BookedMaintenanceDTO();
         hashMap.put("formModel", dto);
-        loadAllCommoForms(hashMap);
+        loadAllCommonForms(hashMap);
         return new ModelAndView("bookedmaintenance.edit", hashMap);
     }
 
@@ -79,7 +83,7 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
         final Map<String, Object> hashMap = new HashMap<>();
         if (result.hasErrors()) {
             hashMap.put("formModel", formModel);
-            loadAllCommoForms(hashMap);
+            loadAllCommonForms(hashMap);
             return new ModelAndView("bookedmaintenance.edit", hashMap);
         } else {
             final IBookedMaintenance entity = fromDTOConverter.apply(formModel);
@@ -101,7 +105,7 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
         final Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("formModel", dto);
         hashMap.put("readonly", true);
-        loadAllCommoForms(hashMap);
+        loadAllCommonForms(hashMap);
         return new ModelAndView("bookedmaintenance.edit", hashMap);
     }
 
@@ -111,13 +115,63 @@ public class BookedMaintenanceController extends AbstractController<BookedMainte
 
         final Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("formModel", dto);
-        loadAllCommoForms(hashMap);
+        loadAllCommonForms(hashMap);
         return new ModelAndView("bookedmaintenance.edit", hashMap);
     }
 
-    private void loadAllCommoForms(final Map<String, Object> hashMap) {
-        loadCommonFormRooms(hashMap);
+    @RequestMapping(value = "/mymaintenance", method = RequestMethod.GET)
+    public ModelAndView myBookedMaintenance(final HttpServletRequest req,
+            @RequestParam(name = "page", required = false) final Integer pageNumber,
+            @RequestParam(name = "sort", required = false) final String sortColumn) {
+
+        final ListDTO<BookedMaintenanceDTO> listDTO = getListDTO(req);
+        listDTO.setPage(pageNumber);
+        listDTO.setSort(sortColumn);
+
+        final BookedMaintenanceFilter filter = new BookedMaintenanceFilter();
+        filter.setFetchUserAccount(true);
+        filter.setFetchMaintenance(true);
+        filter.setUserAccountId(AuthHelper.getLoggedUserId());
+        listDTO.setTotalCount(bookedMaintenanceService.getCount(filter));
+        applySortAndOrder2Filter(listDTO, filter);
+
+        final List<IBookedMaintenance> entities = bookedMaintenanceService.find(filter);
+        listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
+
+        final HashMap<String, Object> models = new HashMap<>();
+        models.put(ListDTO.SESSION_ATTR_NAME, listDTO);
+        return new ModelAndView("bookedmaintenance.mymaintenance", models);
+    }
+
+    @RequestMapping(value = "/newmaintenance/{id}", method = RequestMethod.GET)
+    public ModelAndView showForm(@PathVariable(name = "id", required = true) final Integer id) {
+        final Map<String, Object> hashMap = new HashMap<>();
+        GuestBookedMaintenanceDTO guestBookedMaintenance = new GuestBookedMaintenanceDTO();
+        guestBookedMaintenance.setMaintenanceId(id);
+        loadCommonFormAvailableMaintenances(hashMap);
+        hashMap.put("formModel", guestBookedMaintenance);
+
+        return new ModelAndView("newmaintenance.edit", hashMap);
+    }
+
+    @RequestMapping(value = "/newmaintenance/add", method = RequestMethod.POST)
+    // @valid стоит для валидации
+    public Object save(@Valid @ModelAttribute("formModel") final GuestBookedMaintenanceDTO formModel,
+            final BindingResult result) {
+        final Map<String, Object> hashMap = new HashMap<>();
+        if (result.hasErrors()) {
+            hashMap.put("formModel", formModel);
+            loadCommonFormAvailableMaintenances(hashMap);
+            return new ModelAndView("newmaintenance.edit", hashMap);
+        } else {
+            final IBookedMaintenance entity = bookedMaintenanceFromGBMDTOConverter.apply(formModel);
+            bookedMaintenanceService.save(entity);
+            return "redirect:/bookedmaintenance/mymaintenance";
+        }
+    }
+
+    private void loadAllCommonForms(final Map<String, Object> hashMap) {
         loadCommonFormGuestAccounts(hashMap);
-        loadCommonFormMaintenances(hashMap);
+        loadCommonFormAvailableMaintenances(hashMap);
     }
 }

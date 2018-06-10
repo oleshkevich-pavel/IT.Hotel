@@ -4,11 +4,15 @@
     <entry key="bookedMaintenances">Заказанные дополнительные услуги</entry>
     <entry key="bookedMaintenance.view">Просмотр заказанных дополнительных услуг</entry>
 	<entry key="bookedMaintenance.edit">Редактирование заказанных дополнительных услуг</entry>
+	<entry key="bookedMaintenance.new">Заказ дополнительной услуги</entry>
 	<entry key="roomNumber">№ номера</entry>
 	<entry key="bookedMaintenance.userAccount">Гость</entry>
 	<entry key="maintenance">Название доп. услуги</entry>
+	<entry key="bookedMaintenance.date">Дата заказа</entry>
 	<entry key="bookedMaintenance.time">Время заказа</entry>
+	<entry key="myMaintenance">Мои доп. услуги</entry>
 	<entry key="price">Цена</entry>
+	<entry key="totalPrice">Всего цена</entry>
 	<entry key="save">сохранить</entry>
 	<entry key="back">вернуться</entry>
 	<entry key="id">Id</entry>
@@ -157,7 +161,14 @@
     <entry key="roomSearch.searchByComment">Поиск по комментариям</entry>
     <entry key="roomSearch.moreRoomDetails">Подробнее о номере</entry>
     <entry key="roomSearch.noRoomsFound">Номера не найдены</entry>
+    <entry key="roomSearch.noPhotos">Нет фотографий для номера </entry>
     <entry key="roomSearch.book">забронировать</entry>
+
+    <entry key="maintenanceSearch">Подбор доп. услуг</entry>
+    <entry key="chooseMaintenance">Выберите доп. услугу</entry>
+    <entry key="maintenanceSearch.noPhotos">Нет фотографии для услуги </entry>
+    <entry key="maintenanceSearch.newOrder">Заказать</entry>
+    <entry key="maintenanceSearch.noMaintenancesFound">Доп. услуги не найдены</entry>
 
     <entry key="tasks">Задания</entry>
 	<entry key="task.view">Просмотр задания</entry>
@@ -173,13 +184,16 @@
     <entry key="task.status">статус</entry>
 	<entry key="task.newTask">новое задание</entry>
 
-    <entry key="todayTasks">Задания на сегодня</entry>
+    <entry key="todayTasks">Ежедневные задания</entry>
+    <entry key="allTodayTasks">Задания на сегодня</entry>
     <entry key="noTodayTasks">Активных заданий нет</entry>
 	<entry key="todayTask.open">Текущие</entry>
 	<entry key="todayTask.done">выполнено</entry>
 	<entry key="todayTask.execute">выполнить</entry>
 	<entry key="todayTask.dirtyRooms">Грязные комнаты</entry>
 	<entry key="todayTask.brokenRooms">Номера для ремонта</entry>
+	<entry key="todayTask.clean">Убрать</entry>
+	<entry key="todayTask.repair">Отремонтировать</entry>
 
     <entry key="userAccounts">Юзеры</entry>
 	<entry key="userAccount.view">Просмотр юзера</entry>
@@ -213,10 +227,28 @@
     <entry key="header.fileUploading">Загрузка файлов</entry>
     <entry key="header.dbMenu">БД меню</entry>
     <entry key="logOut">Выйти</entry>
-    <entry key="home">На главную страницу</entry>
+	<entry key="homepage">Домашняя страница</entry>
 
+	<entry key="error404">Ошибка 404. Страница не найдена!</entry>
+	<entry key="error500">Ошибка 500. Внутренняя ошибка сервера!</entry>
+	<entry key="error403">Ошибка 403. Доступ запрещен!</entry>
 
-	<entry key="home.page">Домашняя страница</entry>
+    <entry key="index.hotel">Отель</entry>
+	<entry key="index.one">Отель "IT.Shmotel" известен всем своим гостеприимством.</entry>
+	<entry key="index.two">Подберите</entry>
+	<entry key="index.three"> номер на свой вкус прямо сейчас!</entry>
+	<entry key="index.four">После</entry>
+	<entry key="index.fife">регистрации</entry>
+	<entry key="index.six"> вы сможете забронировать номер и заказать</entry>
+	<entry key="index.seven">дополнительные услуги.</entry>
+	<entry key="index.eight">В отеле действует программа лояльности для постоянных клиентов.</entry>
+    <entry key="index.nine">Мы заботимся о комфортном пребывании наших гостей</entry>
+	<entry key="index.ten">Интерьеры выполнены в классическом стиле и привлекают своей респектабельностью и атмосферой спокойствия</entry>
+	<entry key="index.eleven">Жить нужно стильно!</entry>
+	<entry key="index.twelve">Всегда только свежие фрукты для Вас!</entry>
+	<entry key="index.thirteen">Добро пожаловать в IT.Shmotel</entry>
 
-
+    <entry key="footer.availableUsers">Юзеры:</entry>
+    <entry key="footer.passwords">Пароли:</entry>
+    <entry key="footer.links">Ссылки:</entry>
 </properties>

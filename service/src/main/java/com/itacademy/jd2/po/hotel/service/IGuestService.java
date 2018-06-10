@@ -20,8 +20,6 @@ public interface IGuestService {
 
     IGuest get(Integer id);
 
-    // void update(IGuest entity);
-
     @Transactional
     void delete(Integer id);
 

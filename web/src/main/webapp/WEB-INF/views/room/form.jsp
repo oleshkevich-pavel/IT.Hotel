@@ -40,7 +40,7 @@
 				</div>
 				<div class="col s2">
 					<a class="btn waves-effect waves-light right"
-						href="javascript:history.back();"><i
+						href="${baseUrl}"><i
 						class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
 				</div>
 			</div>
@@ -160,7 +160,7 @@
 			</div>
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right"
-					href="javascript:history.back();"><i
+					href="${baseUrl}"><i
 					class="material-icons left">reply</i><mytaglib:i18n key="back" /></a>
 			</div>
 		</div>

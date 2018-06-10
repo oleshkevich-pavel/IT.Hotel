@@ -30,6 +30,7 @@ public class MaintenanceServiceTest extends AbstractTest {
         assertEquals(entity.getId(), entityFromDB.getId());
         assertEquals(entity.getName(), entityFromDB.getName());
         assertEquals(entity.getActualPrice(), entityFromDB.getActualPrice());
+        assertEquals(entity.getPhotoLink(), entityFromDB.getPhotoLink());
         assertEquals(entity.isAvailable(), entityFromDB.isAvailable());
         assertEquals(entity.getCreated(), entityFromDB.getCreated());
         assertEquals(entity.getUpdated(), entityFromDB.getUpdated());
@@ -57,6 +58,7 @@ public class MaintenanceServiceTest extends AbstractTest {
         assertEquals(newName, updatedEntityFromDB.getName());
 
         assertEquals(entity.getActualPrice(), updatedEntityFromDB.getActualPrice());
+        assertEquals(entity.getPhotoLink(), entityFromDB.getPhotoLink());
         assertEquals(entity.isAvailable(), updatedEntityFromDB.isAvailable());
         assertEquals(entity.getCreated(), updatedEntityFromDB.getCreated());
         assertTrue(updatedEntityFromDB.getUpdated().getTime() >= entity.getUpdated().getTime());
@@ -97,5 +99,4 @@ public class MaintenanceServiceTest extends AbstractTest {
         getMaintenanceService().deleteAll();
         assertEquals(0, getMaintenanceService().getAll().size());
     }
-
 }

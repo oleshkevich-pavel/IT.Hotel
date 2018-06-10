@@ -36,7 +36,7 @@ public class BookingFromGuestBookingDTOConverter implements Function<GuestBookin
         dto.setRoomId(guestBookingDTO.getRoomId());
         dto.setUserAccountId(AuthHelper.getLoggedUserId());
 
-        Integer discount = guestService.getDiscount(AuthHelper.getLoggedUserId());
+        double discount = guestService.getDiscount(AuthHelper.getLoggedUserId());
         Integer roomId = guestBookingDTO.getRoomId();
         IRoom room = roomService.get(roomId);
         dto.setRoomPrice(room.getActualPrice() * (1 - discount / 100));

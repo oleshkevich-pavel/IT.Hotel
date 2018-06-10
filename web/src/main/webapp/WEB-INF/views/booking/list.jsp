@@ -11,10 +11,14 @@
 
 <c:set var="baseUrl" value="${pageContext.request.contextPath}/booking" />
 
-<h4 class="header"><mytaglib:i18n key="bookings" /></h4>
+<h4 class="header">
+	<mytaglib:i18n key="bookings" />
+</h4>
 
 <c:if test="${'PersistenceException' eq error}">
-	<h5 class="header red-text"><mytaglib:i18n key="optimisticLockException" /></h5>
+	<h5 class="header red-text">
+		<mytaglib:i18n key="optimisticLockException" />
+	</h5>
 </c:if>
 
 <div class="row">
@@ -27,7 +31,8 @@
 					<form:options items="${roomChoices}" />
 				</form:select>
 				<form:errors path="roomNumberId" cssClass="red-text" />
-				<label for="roomNumberId"><mytaglib:i18n key="chooseRoomNumber" /></label>
+				<label for="roomNumberId"><mytaglib:i18n
+						key="chooseRoomNumber" /></label>
 			</div>
 		</div>
 		<div class="row">
@@ -47,7 +52,8 @@
 					<form:options items="${bookingStatusChoices}" />
 				</form:select>
 				<form:errors path="bookingStatusId" cssClass="red-text" />
-				<label for="bookingStatusId"><mytaglib:i18n key="chooseBookingStatus" /></label>
+				<label for="bookingStatusId"><mytaglib:i18n
+						key="chooseBookingStatus" /></label>
 			</div>
 		</div>
 		<div class="row">
@@ -69,7 +75,8 @@
 					<form:options items="${accomodationChoices}" />
 				</form:select>
 				<form:errors path="accomodation" cssClass="red-text" />
-				<label for="accomodation"><mytaglib:i18n key="chooseAccomodation" /></label>
+				<label for="accomodation"><mytaglib:i18n
+						key="chooseAccomodation" /></label>
 			</div>
 		</div>
 		<div class="row">
@@ -84,7 +91,8 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<div id="booking-search-slider"	class="noUi-target noUi-ltr noUi-horizontal"></div>
+				<div id="booking-search-slider"
+					class="noUi-target noUi-ltr noUi-horizontal"></div>
 				<label for="booking-search"><mytaglib:i18n key="priceRange" /></label>
 			</div>
 		</div>
@@ -100,7 +108,8 @@
 		</div>
 		<div class="col s12">
 			<button class="btn waves-effect waves-light right" type="submit">
-				search<i class="material-icons right"><mytaglib:i18n key="search" /></i>
+				<mytaglib:i18n key="search" />
+				<i class="material-icons right">search</i>
 			</button>
 		</div>
 	</form:form>
@@ -109,15 +118,35 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id"><mytaglib:i18n key="id" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="room"><mytaglib:i18n key="roomNumber" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="userAccount"><mytaglib:i18n key="booking.userAccount" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="checkIn"><mytaglib:i18n key="checkIn" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="checkOut"><mytaglib:i18n key="checkOut" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="roomPrice"><mytaglib:i18n key="roomPrice" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="bookingStatus"><mytaglib:i18n key="bookingStatus" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="created"><mytaglib:i18n key="created" /></mytaglib:sort-link></th>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="updated"><mytaglib:i18n key="updated" /></mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id">
+					<mytaglib:i18n key="id" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="room">
+					<mytaglib:i18n key="roomNumber" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}"
+					column="userAccount">
+					<mytaglib:i18n key="booking.userAccount" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="checkIn">
+					<mytaglib:i18n key="checkIn" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="checkOut">
+					<mytaglib:i18n key="checkOut" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="roomPrice">
+					<mytaglib:i18n key="roomPrice" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}"
+					column="bookingStatus">
+					<mytaglib:i18n key="bookingStatus" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="created">
+					<mytaglib:i18n key="created" />
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="updated">
+					<mytaglib:i18n key="updated" />
+				</mytaglib:sort-link></th>
 			<th></th>
 		</tr>
 		<c:forEach var="booking" items="${listDTO.list}"
@@ -138,18 +167,33 @@
 						value="${booking.updated}" /></td>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${booking.id}"> <i class="material-icons">info</i>
-				</a> <a class="btn-floating" href="${baseUrl}/${booking.id}/edit"> <i
-						class="material-icons">edit</i>
-				</a> <a class="btn-floating red" href="${baseUrl}/${booking.id}/delete">
-						<i class="material-icons">delete</i>
-				</a></td>
+				</a> <c:choose>
+						<c:when test="${'оплачен' eq booking.bookingStatusName}">
+							<a class="btn-floating disabled"
+								href="${baseUrl}/${booking.id}/edit"> <i
+								class="material-icons">edit</i></a>
+							<a class="btn-floating red disabled"
+								href="${baseUrl}/${booking.id}/delete"> <i
+								class="material-icons">delete</i>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a class="btn-floating" href="${baseUrl}/${booking.id}/edit">
+								<i class="material-icons">edit</i>
+							</a>
+							<a class="btn-floating red"
+								href="${baseUrl}/${booking.id}/delete"> <i
+								class="material-icons">delete</i>
+							</a>
+						</c:otherwise>
+					</c:choose></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 <mytags:paging />
 <a class="waves-effect waves-light btn right" href="${baseUrl}/add">
-    <i class="material-icons">add</i>
+	<i class="material-icons">add</i>
 </a>
 <script>
 			var valueMin = document.getElementById('input-price-min');
@@ -163,7 +207,7 @@
 						}
 					});
 		</script>
-		<script>
+<script>
 					var bookingSearchSlider = document.getElementById('booking-search-slider');
 			noUiSlider.create(bookingSearchSlider, {
 				start : [ ${slider.valueMin}, ${slider.valueMax} ],

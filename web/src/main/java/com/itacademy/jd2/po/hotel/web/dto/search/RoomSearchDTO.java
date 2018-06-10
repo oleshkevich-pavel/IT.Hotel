@@ -9,18 +9,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.enums.Accomodation;
 import com.itacademy.jd2.po.hotel.dao.api.model.enums.ViewType;
-import com.itacademy.jd2.po.hotel.web.validator.TodayOrFuture;
 
 public class RoomSearchDTO {
 
     private Integer roomId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @TodayOrFuture
+    // @TodayOrFutureOrNull
     private Date checkIn;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @TodayOrFuture
+    // @TodayOrFutureOrNull
     private Date checkOut;
 
     private Accomodation accomodation;

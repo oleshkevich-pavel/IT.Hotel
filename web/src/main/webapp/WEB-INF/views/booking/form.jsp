@@ -37,7 +37,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <form:select path="userAccountId" disabled="${readonly}">
-                    <form:options items="${guestAccountChoices}" />
+                    <form:options items="${guestAndEmployeeAccountChoices}" />
                 </form:select>
                 <form:errors path="userAccountId" cssClass="red-text" />
                 <label for="userAccountId"><mytaglib:i18n key="guestAccount" /></label>
@@ -81,7 +81,7 @@
                 </c:if>
             </div>
             <div class="col s3">
-                <a class="btn waves-effect waves-light right" href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
+                <a class="btn waves-effect waves-light right" href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
                 </a>
             </div>
         </div>

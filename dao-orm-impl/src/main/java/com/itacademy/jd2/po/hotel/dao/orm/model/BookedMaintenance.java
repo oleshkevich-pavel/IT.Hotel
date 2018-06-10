@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 import com.itacademy.jd2.po.hotel.dao.api.model.IMaintenance;
-import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
 import com.itacademy.jd2.po.hotel.dao.api.model.IUserAccount;
 
 @Entity
@@ -17,9 +16,6 @@ public class BookedMaintenance extends BaseEntity implements IBookedMaintenance 
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
     private IUserAccount userAccount;
-    
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Room.class)
-    private IRoom room;
     
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Maintenance.class)
     private IMaintenance maintenance;
@@ -58,16 +54,6 @@ public class BookedMaintenance extends BaseEntity implements IBookedMaintenance 
     @Override
     public void setMaintenance(final IMaintenance maintenance) {
         this.maintenance = maintenance;
-    }
-
-    @Override
-    public IRoom getRoom() {
-        return room;
-    }
-
-    @Override
-    public void setRoom(final IRoom room) {
-        this.room = room;
     }
 
     @Override

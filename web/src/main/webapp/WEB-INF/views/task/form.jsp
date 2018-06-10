@@ -50,8 +50,8 @@
 		</div>
  		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="executionTime" type="text" disabled="${readonly}"
-					cssClass="timepicker" />
+				<form:input path="executionTime" type="text" disabled="${readonly}"	cssClass="timepicker" />
+				<form:errors path="executionTime" cssClass="red-text" />
 				<label for="executionTime"><mytaglib:i18n key="task.executionTime" /></label>	
 			</div>
 		</div> 
@@ -100,7 +100,7 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
+				<a class="btn waves-effect waves-light right" href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
 				</a>
 			</div>
 		</div>

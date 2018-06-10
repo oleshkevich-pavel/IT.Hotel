@@ -7,22 +7,45 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.itacademy.jd2.po.hotel.dao.api.model.IMessage;
 
 public class MessageServiceTest extends AbstractTest {
 
+    @Autowired
+    private IEmailSenderService emailSenderService;
+
     @After
     @Before
-    public void cleanTables() {
+    public void cleanTables() throws MessagingException {
         getMessageService().deleteAll();
+        getMessageService().setEmailSenderService(getSpy());
+    }
+
+    private IEmailSenderService getSpy() throws MessagingException {
+        final IEmailSenderService spy = Mockito.spy(emailSenderService);
+        // let's make clear() do nothing
+        Mockito.doAnswer(new Answer<Void>() {
+            @Override
+            public final Void answer(final InvocationOnMock invocation) throws Throwable {
+                System.out.println("email sending simulated");
+                return null;
+            }
+        }).when(spy).sendEmailFromWebSite(Mockito.isA(IMessage.class));
+        return spy;
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws MessagingException {
         final IMessage entity = saveNewMessage();
 
         final IMessage entityFromDB = getMessageService().get(entity.getId());
@@ -49,7 +72,7 @@ public class MessageServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws MessagingException {
         final IMessage entity = saveNewMessage();
         final String newName = "newName-" + getRandomInt();
 
@@ -71,7 +94,7 @@ public class MessageServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws MessagingException {
         final int initialCount = getMessageService().getAll().size();
 
         final int randomObjectsCount = getRandomObjectsCount();
@@ -95,14 +118,14 @@ public class MessageServiceTest extends AbstractTest {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws MessagingException {
         final IMessage entity = saveNewMessage();
         getMessageService().delete(entity.getId());
         assertNull(getMessageService().get(entity.getId()));
     }
 
     @Test
-    public void testDeleteAll() {
+    public void testDeleteAll() throws MessagingException {
         saveNewMessage();
         getMessageService().deleteAll();
         assertEquals(0, getMessageService().getAll().size());

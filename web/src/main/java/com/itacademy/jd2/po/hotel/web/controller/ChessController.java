@@ -59,7 +59,6 @@ public class ChessController extends AbstractController<RoomDTO, RoomFilter> {
     public ModelAndView index(final HttpServletRequest req,
             @ModelAttribute(SEARCH_FORM_MODEL) BookingSearchDTO searchDTO,
             @RequestParam(name = "week", required = false) Integer countWeek) {
-
         final ListDTO<RoomDTO> listRoomDTO = new ListDTO<RoomDTO>();
         final List<IRoom> roomEntities = roomService.getAllFullInfo();
         listRoomDTO.setList(roomEntities.stream().map(roomToDTOConverter).collect(Collectors.toList()));

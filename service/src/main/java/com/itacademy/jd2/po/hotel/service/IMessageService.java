@@ -2,6 +2,7 @@ package com.itacademy.jd2.po.hotel.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 import com.itacademy.jd2.po.hotel.dao.api.filter.MessageFilter;
@@ -12,7 +13,7 @@ public interface IMessageService {
     IMessage createEntity();
 
     @Transactional
-    void save(IMessage entity);
+    void save(IMessage entity) throws MessagingException;
 
     @Transactional
     void delete(Integer id);
@@ -29,4 +30,6 @@ public interface IMessageService {
     long getCount(MessageFilter filter);
 
     List<IMessage> getAllFullInfo();
+
+    void setEmailSenderService(IEmailSenderService emailSenderService);
 }

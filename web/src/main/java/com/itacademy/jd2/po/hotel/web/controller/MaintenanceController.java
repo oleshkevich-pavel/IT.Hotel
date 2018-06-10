@@ -36,10 +36,8 @@ public class MaintenanceController extends AbstractController<MaintenanceDTO, Ma
 
     @Autowired
     private IMaintenanceService maintenanceService;
-
     @Autowired
     private MaintenanceFromDTOConverter fromDTOConverter;
-
     @Autowired
     private MaintenanceToDTOConverter toDTOConverter;
 
@@ -60,16 +58,7 @@ public class MaintenanceController extends AbstractController<MaintenanceDTO, Ma
             req.getSession().setAttribute(SEARCH_DTO, searchDTO);
         }
 
-        final MaintenanceFilter filter = new MaintenanceFilter();
-        if (searchDTO.getName() != null) {
-            filter.setName(searchDTO.getName());
-        }
-
-        if (searchDTO.getAvailable() != null && searchDTO.getAvailable()) {
-            filter.setAvailable(Boolean.TRUE);
-        } else {
-            filter.setAvailable(null);
-        }
+        final MaintenanceFilter filter = applyFilter(searchDTO);
 
         listDTO.setTotalCount(maintenanceService.getCount(filter));
         applySortAndOrder2Filter(listDTO, filter);
@@ -78,6 +67,7 @@ public class MaintenanceController extends AbstractController<MaintenanceDTO, Ma
         listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
 
         final HashMap<String, Object> models = new HashMap<>();
+        loadAllCommonItems(models);
         models.put(ListDTO.SESSION_ATTR_NAME, listDTO);
         models.put(SEARCH_FORM_MODEL, searchDTO);
         return new ModelAndView("maintenance.list", models);
@@ -128,6 +118,24 @@ public class MaintenanceController extends AbstractController<MaintenanceDTO, Ma
         hashMap.put("readonly", true);
 
         return new ModelAndView("maintenance.edit", hashMap);
+    }
+
+    private MaintenanceFilter applyFilter(final MaintenanceSearchDTO searchDTO) {
+        final MaintenanceFilter filter = new MaintenanceFilter();
+        if (searchDTO.getId() != null) {
+            filter.setName(maintenanceService.getFullInfo(searchDTO.getId()).getName());
+        }
+
+        if (searchDTO.getAvailable() != null && searchDTO.getAvailable()) {
+            filter.setAvailable(Boolean.TRUE);
+        } else {
+            filter.setAvailable(null);
+        }
+        return filter;
+    }
+
+    private void loadAllCommonItems(final Map<String, Object> hashMap) {
+        loadCommonFormMaintenances(hashMap);
     }
 
     private MaintenanceSearchDTO getSearchDTO(final HttpServletRequest req) {

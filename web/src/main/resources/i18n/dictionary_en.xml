@@ -4,11 +4,15 @@
     <entry key="bookedMaintenances">Booked services</entry>
 	<entry key="bookedMaintenance.view">View booked services</entry>
 	<entry key="bookedMaintenance.edit">Edit booked services</entry>
+	<entry key="bookedMaintenance.new">Book service</entry>
 	<entry key="roomNumber">Room number</entry>
 	<entry key="bookedMaintenance.userAccount">Guest</entry>
 	<entry key="maintenance">Service name</entry>
+	<entry key="bookedMaintenance.date">Order's date</entry>
 	<entry key="bookedMaintenance.time">Order's time</entry>
+	<entry key="myMaintenance">My services</entry>
 	<entry key="price">Price</entry>
+	<entry key="totalPrice">Total price</entry>
 	<entry key="save">save</entry>
 	<entry key="back">back</entry>
 	<entry key="id">Id</entry>
@@ -23,13 +27,13 @@
 	<entry key="optimisticLockException">Row was updated by another transaction (or unsaved-value mapping was incorrect). Please, try one more time with new values</entry>
 	<entry key="booking.newBooking">New booking</entry>
     <entry key="checkIn">CheckIn</entry>
-	<entry key="checkOut">CheckOut</entry>	
-	<entry key="roomPrice">Room price</entry>	
+	<entry key="checkOut">CheckOut</entry>
+	<entry key="roomPrice">Room price</entry>
 	<entry key="bookingStatus">Booking status</entry>
 	<entry key="any">any</entry>
 	<entry key="chooseRoomNumber">choose number</entry>
-	<entry key="chooseEmail">choose guest's Email </entry>	
-	<entry key="chooseBookingStatus">choose booking status</entry>	
+	<entry key="chooseEmail">choose guest's Email </entry>
+	<entry key="chooseBookingStatus">choose booking status</entry>
 	<entry key="chooseAccomodation">choose accomodation</entry>
 	<entry key="chooseView">choose view</entry>
 	<entry key="priceRange">price range</entry>
@@ -67,27 +71,27 @@
     <entry key="phone">Phone number</entry>
     <entry key="hiring">Hiring's date</entry>
     <entry key="layoff">Layoff's date</entry>
-	
+
 	<entry key="guests">Guests</entry>
 	<entry key="guest.view">View guest</entry>
 	<entry key="guest.edit">Edit guest</entry>
     <entry key="guest.persistenceException">Please, choose another email</entry>
  	<entry key="guest.verifyKey">Verify key</entry>
-	<entry key="guest.isEmailVerified"> Is email verified?</entry>
+	<entry key="guest.isEmailVerified">Is email verified?</entry>
 	<entry key="guestAccount">Guest</entry>
 	<entry key="guestStatus">Guest status</entry>
 	<entry key="credit">Credit</entry>
 	<entry key="guest.verified">Verified</entry>
 	<entry key="guest">Guest</entry>
 	<entry key="myProfile">My profile</entry>
-	
+
 	<entry key="guestStatuses">Guest statuses</entry>
 	<entry key="guestStatus.view">View guest status</entry>
 	<entry key="guestStatus.edit">Edit guest status</entry>
     <entry key="guestStatus.persistenceException">Please, choose another status</entry>
     <entry key="guestStatus.name">Name</entry>
     <entry key="guestStatus.discount">Discount</entry>
-	
+
 	<entry key="maintenances">Services</entry>
 	<entry key="maintenance.view">View service</entry>
 	<entry key="maintenance.edit">Edit service</entry>
@@ -97,13 +101,13 @@
 	<entry key="maintenance.available">available</entry>
 	<entry key="maintenance.unavailable">unavailable</entry>
 	<entry key="all">all</entry>
-	
+
     <entry key="messages">Messages</entry>
 	<entry key="message.view">View message</entry>
 	<entry key="message.edit">Edit message</entry>
 	<entry key="message.name">Name</entry>
 	<entry key="message">Message</entry>
-	
+
     <entry key="photolinks">Photo links</entry>
 	<entry key="photolink.view">View photolink</entry>
 	<entry key="photolink.edit">Edit photolink</entry>
@@ -123,7 +127,7 @@
     <entry key="registration.newGuest">New guest</entry>
     <entry key="registration.persistenceException">Please, choose another email</entry>
 	<entry key="registration.signUp">sign up</entry>
-    <entry key="registration.emailHasBeenVerified">Your email has been verified</entry>
+    <entry key="registration.emailHasBeenVerified">email has been verified</entry>
     <entry key="registration.goToLoginPage">Go to login page</entry>
     <entry key="registration.enterYourKey">Enter key, from e-mail:</entry>
     <entry key="registration.verifyKey">key</entry>
@@ -147,7 +151,7 @@
 	<entry key="room.dontNeedRepair">don't need</entry>
 	<entry key="room.repair">Need Repair?</entry>
 
-	<entry key="noPhotos">No photos for the room </entry>
+	<entry key="noPhotos">No photo for the room </entry>
 	<entry key="postComment">post comment</entry>
 
     <entry key="roomSearch">Room search</entry>
@@ -156,8 +160,15 @@
     <entry key="roomSearch.searchByDescription">Search by description</entry>
     <entry key="roomSearch.searchByComment">Search by comments</entry>
     <entry key="roomSearch.moreRoomDetails">More room details</entry>
-    <entry key="roomSearch.noRoomsFound">No rooms found</entry>
+    <entry key="roomSearch.noRoomsFound">Rooms were not found</entry>
+    <entry key="roomSearch.noPhotos">No photo for the room </entry>
     <entry key="roomSearch.book">book</entry>
+
+    <entry key="maintenanceSearch">Service search</entry>
+    <entry key="chooseMaintenance">Choose service</entry>
+    <entry key="maintenanceSearch.noPhotos">No photo for the service</entry>
+    <entry key="maintenanceSearch.newOrder">Book</entry>
+    <entry key="maintenanceSearch.noMaintenancesFound">Services were not found</entry>
 
     <entry key="tasks">Tasks</entry>
 	<entry key="task.view">View task</entry>
@@ -173,13 +184,16 @@
     <entry key="task.status">status</entry>
     <entry key="task.newTask">new task</entry>
 
-    <entry key="todayTasks">Today tasks</entry>
+    <entry key="todayTasks">Daily tasks</entry>
+    <entry key="allTodayTasks">Today tasks</entry>
     <entry key="noTodayTasks">No active tasks</entry>
 	<entry key="todayTask.open">open</entry>
 	<entry key="todayTask.done">done</entry>
 	<entry key="todayTask.execute">execute</entry>
 	<entry key="todayTask.dirtyRooms">Dirty rooms</entry>
 	<entry key="todayTask.brokenRooms">Rooms to repair</entry>
+	<entry key="todayTask.clean">Clean up</entry>
+	<entry key="todayTask.repair">Fix it</entry>
 
     <entry key="userAccounts">User accounts</entry>
 	<entry key="userAccount.view">View user account</entry>
@@ -204,17 +218,37 @@
 
     <entry key="file">File</entry>
     <entry key="upload">Upload</entry>
-    <entry key="fileUrl">File URl</entry>
+    <entry key="fileUrl">File url</entry>
 
-    <entry key="login.loginWithEmailAndPassword">Login with email and password</entry>
-    <entry key="logIn">Log in</entry>
+    <entry key="login.loginWithEmailAndPassword">Sign in with email and password</entry>
+    <entry key="logIn">Sign in</entry>
 
     <entry key="header.editProfile">Edit profile</entry>
     <entry key="header.fileUploading">File uploading</entry>
     <entry key="header.dbMenu">DB menu</entry>
-    <entry key="logOut">Log out</entry>
-    <entry key="home">Home</entry>
+    <entry key="logOut">Sign out</entry>
+	<entry key="homepage">Home page</entry>
 
-	<entry key="home.page">Home page</entry>
+	<entry key="error404">Error 404. Page not found!</entry>
+	<entry key="error500">Error 500. Internal Server Error!</entry>
+	<entry key="error403">Error 403. Forbidden!</entry>
 
+	<entry key="index.hotel">Hotel</entry>
+    <entry key="index.one">Hotel "IT.Shmotel" is known for its hospitality.</entry>
+    <entry key="index.two">Choose</entry>
+    <entry key="index.three">your room right now!</entry>
+    <entry key="index.four">After</entry>
+    <entry key="index.fife">registration</entry>
+    <entry key="index.six">you can book rooms and order</entry>
+    <entry key="index.seven">additional services.</entry>
+    <entry key="index.eight">The hotel has a loyalty program for regular clients.</entry>
+    <entry key="index.nine">We take care of comfortable staying of our guests</entry>
+    <entry key="index.ten">The interiors are classic and attract with their respectability and peaceful atmosphere</entry>
+    <entry key="index.eleven">Live in style!</entry>
+    <entry key="index.twelve">Always only fresh fruits for you!</entry>
+    <entry key="index.thirteen">Welcome to IT.Shmotel</entry>
+
+    <entry key="footer.availableUsers">Users:</entry>
+    <entry key="footer.passwords">Passwords:</entry>
+    <entry key="footer.links">Links:</entry>
 </properties>

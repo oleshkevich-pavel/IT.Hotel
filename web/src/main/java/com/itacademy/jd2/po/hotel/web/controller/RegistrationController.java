@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.mail.MessagingException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -36,6 +37,7 @@ public class RegistrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("registrationLogger");
     private static final String SEARCH_FORM_MODEL = "searchFormModel";
+    private static final Object MESSAGING_ERROR = "Something went wrong. Verifying key was not sended to you email. Your key: ";
 
     @Autowired
     private IGuestService guestService;
@@ -71,7 +73,6 @@ public class RegistrationController {
             if (!valid) { // req.setAttribute("errorString", "Captcha
                           // invalid!");
                 hashMap.put("error", reCaptchaService.ERROR_STRING);
-                LOGGER.info(reCaptchaService.ERROR_STRING);
                 return new ModelAndView("registration.edit", hashMap);
             }
 
@@ -82,17 +83,19 @@ public class RegistrationController {
             try {
                 guestService.save(userAccount, entity);
                 emailSenderService.sendVerifyKey(userAccount, verifyKey);
-                LOGGER.info("verify key {} was send for user {}", verifyKey, userAccount.getEmail());
             } catch (PersistenceException e) {
                 hashMap.put("error", "PersistenceException");
                 return new ModelAndView("registration.edit", hashMap);
+            } catch (MessagingException e) {
+                hashMap.put("error", MESSAGING_ERROR + verifyKey);
+                return new ModelAndView("registration.verifying", hashMap);
             }
             return "redirect:registration/verifying";
         }
     }
 
     @RequestMapping(value = "/verifying/{verifyKey}", method = RequestMethod.GET)
-    public Object verifyWithLink(@PathVariable(name = "verifyKey") final String verifyKey,
+    public Object verifyWithLink(@PathVariable(name = "verifyKey", required = false) final String verifyKey,
             @ModelAttribute(SEARCH_FORM_MODEL) final GuestSearchDTO searchDTO) {
 
         final boolean verified = isVerifyingComplete(verifyKey);

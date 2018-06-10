@@ -26,17 +26,17 @@
 				<td><c:out value="${photoLink.roomNumber}" /></td>
 				<td><c:out value="${photoLink.userAccountEmail}" /></td>
 				<td><c:out value="${photoLink.link}" /></td>
-				<td><img class="materialboxed" width="30%" src="${photoLink.link}"></td>
+				<td><img class="materialboxed" width="200px" src="${photoLink.link}"></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${photoLink.created}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${photoLink.updated}" /></td>
-				<td class="right">
+				<td valign="middle">
 				    <a class="btn-floating"	href="${baseUrl}/${photoLink.id}">
 				           <i class="material-icons">info</i>
 				    </a>
 				    <a class="btn-floating"	href="${baseUrl}/${photoLink.id}/edit">
 				           <i class="material-icons">edit</i>
 				    </a>
-			        <a class="btn-floating red"	href="${baseUrl}/${photoLink.id}/delete">
+			        <a class="btn-floating red" href="${baseUrl}/${photoLink.id}/delete">
 		                   <i class="material-icons">delete</i>
 			        </a>
 				</td>

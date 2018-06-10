@@ -25,6 +25,7 @@ import com.itacademy.jd2.po.hotel.dao.api.model.IRoom;
 import com.itacademy.jd2.po.hotel.service.IPhotoLinkService;
 import com.itacademy.jd2.po.hotel.service.IRoomService;
 import com.itacademy.jd2.po.hotel.service.IStorageService;
+import com.itacademy.jd2.po.hotel.service.googledrive.StorageException;
 import com.itacademy.jd2.po.hotel.web.converter.PhotoLinkFromDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.PhotoLinkToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.RoomToDTOConverter;
@@ -50,28 +51,40 @@ public class GalleryController extends AbstractController<RoomDTO, RoomFilter> {
     @Autowired
     private PhotoLinkFromDTOConverter photoLinkFromDTOConverter;
 
-    @RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
     public ModelAndView index(final HttpServletRequest req,
-            @RequestParam(name="file", required = false) final MultipartFile file,
-            @RequestParam(name="roomid", required = false) Integer roomId
-/*            @RequestParam(name = "page", required = false) final Integer pageNumber,
-            @RequestParam(name = "sort", required = false) final String sortColumn*/) throws GeneralSecurityException, IOException {
+            @RequestParam(name = "file", required = false) final MultipartFile file,
+            @RequestParam(name = "roomid", required = false) Integer roomId
+    /*
+     * @RequestParam(name = "page", required = false) final Integer pageNumber,
+     * 
+     * @RequestParam(name = "sort", required = false) final String sortColumn
+     */) {
 
+        final HashMap<String, Object> models = new HashMap<>();
         if (req.getMethod().equalsIgnoreCase("post")) {
-            storageService.store(file);
-            String url = storageService.getUploadedFileUrl(file);
-            storageService.deleteAll();
-            System.out.println("new uploaded file" + url);
-            PhotoLinkDTO photoLinkDTO = new PhotoLinkDTO();
-            photoLinkDTO.setRoomId(roomId);
-            photoLinkDTO.setLink(url);
-            photoLinkDTO.setUserAccountId(AuthHelper.getLoggedUserId());
-            IPhotoLink entity = photoLinkFromDTOConverter.apply(photoLinkDTO);
-            photoLinkService.save(entity);
+            try {
+                storageService.store(file);
+                String url = storageService.getUploadedFileUrl(file);
+                storageService.deleteAll();
+                System.out.println("new uploaded file" + url);
+                PhotoLinkDTO photoLinkDTO = new PhotoLinkDTO();
+                photoLinkDTO.setRoomId(roomId);
+                photoLinkDTO.setLink(url);
+                photoLinkDTO.setUserAccountId(AuthHelper.getLoggedUserId());
+                IPhotoLink entity = photoLinkFromDTOConverter.apply(photoLinkDTO);
+                photoLinkService.save(entity);
+            } catch (StorageException | GeneralSecurityException | IOException e) {
+                models.put("error", e.getMessage());
+            }
         }
-        final ListDTO<RoomDTO> listRoomDTO = new ListDTO<RoomDTO>()/*getListDTO(req)*/;
-/*        listRoomDTO.setPage(pageNumber);
-        listRoomDTO.setSort("number:asc");*/
+        final ListDTO<RoomDTO> listRoomDTO = new ListDTO<RoomDTO>()/*
+                                                                    * getListDTO
+                                                                    * (req)
+                                                                    */;
+        /*
+         * listRoomDTO.setPage(pageNumber); listRoomDTO.setSort("number:asc");
+         */
 
         final List<IRoom> entities = roomService.getAllFullInfo();
         listRoomDTO.setList(entities.stream().map(roomToDTOConverter).collect(Collectors.toList()));
@@ -84,31 +97,28 @@ public class GalleryController extends AbstractController<RoomDTO, RoomFilter> {
             roomsWithPhotoLinks.put(listRoomDTO.getList().get(i), listPhotoLinkDTO);
         }
 
-        final HashMap<String, Object> models = new HashMap<>();
         models.put(ListDTO.SESSION_ATTR_NAME, listRoomDTO);
         models.put("roomsWithPhotoLinks", roomsWithPhotoLinks);
         return new ModelAndView("gallery", models);
     }
 
-/*    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView handleFileUpload(@RequestParam("file") final MultipartFile file,
-            @RequestParam("roomid") final Integer roomId) throws GeneralSecurityException, IOException {
-        storageService.store(file);
-        String url = storageService.getUploadedFileUrl(file);
-        storageService.deleteAll();
-        System.out.println("new uploaded file" + url);
-        PhotoLinkDTO photoLinkDTO = new PhotoLinkDTO();
-        photoLinkDTO.setRoomId(roomId);
-        photoLinkDTO.setLink(url);
-        photoLinkDTO.setUserAccountId(AuthHelper.getLoggedUserId());
-        IPhotoLink entity = photoLinkFromDTOConverter.apply(photoLinkDTO);
-        photoLinkService.save(entity);
-        final Map<String, Object> hashMap = new HashMap<>();
-        // hashMap.put("message", "https://drive.google.com/open?id=" +
-        // f.getId());
-        // hashMap.put("message", url);
-        return new ModelAndView("gallery");
-    }*/
+    /*
+     * @RequestMapping(method = RequestMethod.POST) public ModelAndView
+     * handleFileUpload(@RequestParam("file") final MultipartFile file,
+     * 
+     * @RequestParam("roomid") final Integer roomId) throws
+     * GeneralSecurityException, IOException { storageService.store(file);
+     * String url = storageService.getUploadedFileUrl(file);
+     * storageService.deleteAll(); System.out.println("new uploaded file" +
+     * url); PhotoLinkDTO photoLinkDTO = new PhotoLinkDTO();
+     * photoLinkDTO.setRoomId(roomId); photoLinkDTO.setLink(url);
+     * photoLinkDTO.setUserAccountId(AuthHelper.getLoggedUserId()); IPhotoLink
+     * entity = photoLinkFromDTOConverter.apply(photoLinkDTO);
+     * photoLinkService.save(entity); final Map<String, Object> hashMap = new
+     * HashMap<>(); // hashMap.put("message",
+     * "https://drive.google.com/open?id=" + // f.getId()); //
+     * hashMap.put("message", url); return new ModelAndView("gallery"); }
+     */
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView showForm() {

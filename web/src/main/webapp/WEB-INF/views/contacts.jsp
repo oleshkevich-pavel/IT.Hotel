@@ -9,26 +9,39 @@
 <div class="row">
 
 	<div class="col s6">
-		<h5><mytaglib:i18n key="contacts" /></h5>
-		<p>
-			<strong><mytaglib:i18n key="address" />:</strong><br> <mytaglib:i18n key="contacts.streetAddress" />
-			<br><mytaglib:i18n key="contacts.cityAddress" />
-			<br><mytaglib:i18n key="belarus" />
-		</p>
-		<p>
-			<strong><mytaglib:i18n key="contacts.phone" />:<br></strong>+375 29 266 33 04<br>
-		</p>
-		<p>
-			<strong><mytaglib:i18n key="email" />:</strong> it.shmotel@gmail.com
-		</p>
+		<h3>
+			<mytaglib:i18n key="contacts" />
+		</h3>
+		<h5>
+			<p>
+				<strong><mytaglib:i18n key="address" />:</strong><br>
+				<mytaglib:i18n key="contacts.streetAddress" />
+				<br>
+				<mytaglib:i18n key="contacts.cityAddress" />
+				<br>
+				<mytaglib:i18n key="belarus" />
+			</p>
+			<p>
+				<strong><mytaglib:i18n key="contacts.phone" />:</strong>+375 29 266
+				33 04<br>
+			</p>
+			<p>
+				<strong><mytaglib:i18n key="email" />:</strong>
+				it.shmotel@gmail.com
+			</p>
+		</h5>
 	</div>
 
 	<form:form class="col s6" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">
 
-		<h5 class="header red-text">
-			<c:out value="${error}" />
-		</h5>
+		<c:if test="${not empty error}">
+			<div class="row">
+				<div class="col s12 center">
+					<div class="error">${error}</div>
+				</div>
+			</div>
+		</c:if>
 
 		<div class="row">
 			<div class="input-field col s12">
@@ -56,16 +69,20 @@
 				<form:textarea path="message" type="text"
 					class="materialize-textarea" />
 				<form:errors path="message" cssClass="red-text" />
-				<label for="message"><mytaglib:i18n key="contacts.yourMessage" /></label>
+				<label for="message"><mytaglib:i18n
+						key="contacts.yourMessage" /></label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col s6">
-				<div class="g-recaptcha" data-sitekey="6LcjfVoUAAAAANHUeelMXznTDWOMpjVUS6x3sWBg"></div>
-			</div> 
+				<div class="g-recaptcha"
+					data-sitekey="6LcjfVoUAAAAANHUeelMXznTDWOMpjVUS6x3sWBg"></div>
+			</div>
 			<div class="col s6">
-				<button class="btn waves-effect waves-light right" type="submit" value="Submit">
-					<mytaglib:i18n key="send" /> <i class="material-icons right">send</i>
+				<button class="btn waves-effect waves-light right" type="submit"
+					value="Submit">
+					<mytaglib:i18n key="send" />
+					<i class="material-icons right">send</i>
 				</button>
 			</div>
 		</div>

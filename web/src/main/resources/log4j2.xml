@@ -31,9 +31,9 @@
 
 		<Logger name="registrationLogger" level="info"></Logger>
 
-		<Logger name="contactsLogger" level="info"></Logger>
-
 		<Logger name="verifyReCaptchaLogger" level="info"></Logger>
+
+        <Logger name="emailSenderLogger" level="info"></Logger>
 
 		<Logger name="com.itacademy.jd2.po.hotel.service.impl" level="info"></Logger>
 

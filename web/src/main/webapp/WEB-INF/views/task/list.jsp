@@ -28,7 +28,7 @@
 				<td><c:out value="${task.id}" /></td>
 				<td><c:out value="${task.toDo}" /></td>
 				<td><c:out value="${task.description}" /></td>
-				<td><fmt:formatDate pattern="hh:mm a // yyyy-MM-dd" value="${task.executionTime}" /></td>
+				<td><fmt:formatDate pattern="hh:mm a yyyy-MM-dd" value="${task.executionTime}" /></td>
 				<td><c:out value="${task.answerableEmail}" /></td>
 				<td><c:out value="${task.priority}" /></td>
 				<td><c:out value="${task.creatorEmail}" /></td>
@@ -42,7 +42,7 @@
 				    <a class="btn-floating"	href="${baseUrl}/${task.id}/edit">
 				           <i class="material-icons">edit</i>
 				    </a>
-			        <a class="btn-floating red"	href="${baseUrl}/${task.id}/delete">
+			        <a class="btn-floating red disabled" href="${baseUrl}/${task.id}/delete">
 		                   <i class="material-icons">delete</i>
 			        </a>
 				</td>

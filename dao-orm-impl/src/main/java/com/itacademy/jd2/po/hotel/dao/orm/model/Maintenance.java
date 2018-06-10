@@ -10,10 +10,13 @@ public class Maintenance extends BaseEntity implements IMaintenance {
 
     @Column
     private String name;
-    
+
     @Column
     private Double actualPrice;
-    
+
+    @Column
+    private String photoLink;
+
     @Column
     private Boolean available;
 
@@ -38,6 +41,16 @@ public class Maintenance extends BaseEntity implements IMaintenance {
     }
 
     @Override
+    public String getPhotoLink() {
+        return photoLink;
+    }
+
+    @Override
+    public void setPhotoLink(final String photoLink) {
+        this.photoLink = photoLink;
+    }
+
+    @Override
     public Boolean isAvailable() {
         return available;
     }
@@ -49,7 +62,7 @@ public class Maintenance extends BaseEntity implements IMaintenance {
 
     @Override
     public String toString() {
-        return "Maintenance [name=" + name + ", actualPrice=" + actualPrice + ", available=" + available + ", getId()="
-                + getId() + "]";
+        return "Maintenance [name=" + name + ", actualPrice=" + actualPrice + ", photoLink=" + photoLink
+                + ", available=" + available + ", getId()=" + getId() + "]";
     }
 }

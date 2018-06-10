@@ -32,6 +32,13 @@
             </div>
         </div>
         <div class="row">
+			<div class="input-field col s12">
+				<form:input path="photoLink" type="text" disabled="${readonly}" />
+				<form:errors path="photoLink" cssClass="red-text" />
+				<label for="photoLink"><mytaglib:i18n key="link" /></label>
+			</div>
+		</div>
+        <div class="row">
             <div class="input-field col s12">
                  <div class="switch">
                       <label> <mytaglib:i18n key="maintenance.unavailable" /> <form:checkbox path="available" disabled="${readonly}" /> <span class="lever"></span> <mytaglib:i18n key="maintenance.available" />
@@ -48,7 +55,7 @@
                 </c:if>
             </div>
             <div class="col s3">
-                <a class="btn waves-effect waves-light right" href="javascript:history.back();"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
+                <a class="btn waves-effect waves-light right" href="${baseUrl}"><i class="material-icons left">reply</i><mytaglib:i18n key="back" />
                 </a>
             </div>
         </div>

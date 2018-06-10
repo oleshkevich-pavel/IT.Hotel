@@ -1,5 +1,6 @@
 package com.itacademy.jd2.po.hotel.web.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itacademy.jd2.po.hotel.dao.api.filter.BookingFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IBooking;
 import com.itacademy.jd2.po.hotel.service.IBookingService;
-import com.itacademy.jd2.po.hotel.service.IGuestService;
-import com.itacademy.jd2.po.hotel.service.IRoomService;
 import com.itacademy.jd2.po.hotel.web.converter.BookingFromDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.BookingFromGuestBookingDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.BookingToDTOConverter;
@@ -145,7 +144,6 @@ public class BookingController extends AbstractController<BookingDTO, BookingFil
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
         final BookingDTO dto = toDTOConverter.apply(bookingService.getFullInfo(id));
-
         final Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("formModel", dto);
         loadAllCommonItems(hashMap);
@@ -196,6 +194,8 @@ public class BookingController extends AbstractController<BookingDTO, BookingFil
         } else {
             final IBooking entity = bookingFromGuestBookingDTOConverter.apply(guestBookingDTO);
             try {
+                Integer countDays = daysBetween(entity.getCheckIn(), entity.getCheckOut());
+                entity.setRoomPrice(countDays * entity.getRoomPrice());
                 bookingService.save(entity);
             } catch (PersistenceException e) {
                 loadCommonFormRooms(hashMap);
@@ -204,6 +204,10 @@ public class BookingController extends AbstractController<BookingDTO, BookingFil
             }
             return "redirect:/booking/mybooking";
         }
+    }
+
+    public int daysBetween(final Date d1, final Date d2) {
+        return (int) (Math.abs((d2.getTime() - d1.getTime())) / (1000 * 60 * 60 * 24));
     }
 
     private Slider getSlider(final BookingSearchDTO searchDTO) {
@@ -262,7 +266,7 @@ public class BookingController extends AbstractController<BookingDTO, BookingFil
 
     private void loadAllCommonItems(final Map<String, Object> hashMap) {
         loadCommonFormRooms(hashMap);
-        loadCommonFormGuestAccounts(hashMap);
+        loadCommonFormGuestAndEmployeesAccounts(hashMap);
         loadCommonFormBookingStatuses(hashMap);
     }
 

@@ -8,6 +8,7 @@ import com.itacademy.jd2.po.hotel.dao.api.filter.BookedMaintenanceFilter;
 import com.itacademy.jd2.po.hotel.dao.api.model.IBookedMaintenance;
 
 public interface IBookedMaintenanceService {
+        /*extends IAbstractService<IBookedMaintenance, IBookedMaintenanceDao, Integer, BookedMaintenanceFilter> */
 
     IBookedMaintenance get(Integer id);
 

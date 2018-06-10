@@ -10,10 +10,6 @@ public interface IBookedMaintenance extends IBaseEntity {
 
     void setUserAccount(IUserAccount userAccount);
 
-    IRoom getRoom();
-
-    void setRoom(IRoom room);
-
     IMaintenance getMaintenance();
 
     void setMaintenance(IMaintenance mantenance);

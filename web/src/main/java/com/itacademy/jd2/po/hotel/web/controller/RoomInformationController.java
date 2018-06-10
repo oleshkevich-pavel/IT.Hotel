@@ -33,6 +33,7 @@ import com.itacademy.jd2.po.hotel.web.converter.CommentToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.PhotoLinkToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.converter.RoomToDTOConverter;
 import com.itacademy.jd2.po.hotel.web.dto.CommentDTO;
+import com.itacademy.jd2.po.hotel.web.dto.GuestCommentDTO;
 import com.itacademy.jd2.po.hotel.web.dto.PhotoLinkDTO;
 import com.itacademy.jd2.po.hotel.web.dto.RoomDTO;
 import com.itacademy.jd2.po.hotel.web.dto.list.ListDTO;
@@ -95,17 +96,27 @@ public class RoomInformationController extends AbstractController<RoomDTO, RoomF
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     // @valid стоит для валидации
-    public Object save(@Valid @ModelAttribute("commentModel") final CommentDTO commentModel,
+    public Object save(@Valid @ModelAttribute("commentModel") final GuestCommentDTO commentModel,
             @PathVariable(name = "id", required = true) final Integer id, final BindingResult result) {
-        if (result.hasErrors()) {
-            final Map<String, Object> hashMap = new HashMap<>();
-            hashMap.put("commentModel", commentModel);
-            return new ModelAndView("roominformation.form", hashMap);
+        if (result.hasErrors() || AuthHelper.isUserAnonymous()) {
+            // на случай, если вдруг захочет отправить незарегистрированный
+            // методом пост что-нибудь
+            return "redirect:/roominformation/" + id;
         } else {
-            final IComment entity = commentFromDTOConverter.apply(commentModel);
+            CommentDTO commentDTO = applyCommentDTO(commentModel, id);
+            final IComment entity = commentFromDTOConverter.apply(commentDTO);
             commentService.save(entity);
             return "redirect:/roominformation/" + id;
         }
+    }
+
+    private CommentDTO applyCommentDTO(final GuestCommentDTO commentModel, final Integer id) {
+        CommentDTO commentDTO = new CommentDTO();
+        //commentDTO.setId(commentModel.getId()); в jmeter тесте почему-то попадает id комнаты
+        commentDTO.setComment(commentModel.getComment());
+        commentDTO.setRoomId(id);
+        commentDTO.setUserAccountId(AuthHelper.getLoggedUserId());
+        return commentDTO;
     }
 
     private Double getPriceWithDiscount(final IRoom dbModel) {
@@ -134,6 +145,8 @@ public class RoomInformationController extends AbstractController<RoomDTO, RoomF
         filter.setRoomId(roomId);
         filter.setFetchRoom(true);
         filter.setFetchUserAccount(true);
+        filter.setSortColumn("id");
+        filter.setSortOrder(true);
         listDTO.setTotalCount(commentService.find(filter).size());
         final List<IComment> entities = commentService.find(filter);
 

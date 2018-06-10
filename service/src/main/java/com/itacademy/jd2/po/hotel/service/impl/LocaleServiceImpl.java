@@ -32,7 +32,7 @@ public class LocaleServiceImpl implements ILocaleService {
     private IUserAccountService userAccountService;
 
     @Override
-    public Locale get(final Integer userAccountId) {
+    public Locale get(final Integer userAccountId) throws Exception {
         Locale locale = null;
         List<IUnstructuredObject> listEntity = dao.find(getLocaleFilter(userAccountId));
         if (listEntity.size() != 0) {
@@ -43,14 +43,15 @@ public class LocaleServiceImpl implements ILocaleService {
                 locale = (Locale) in.readObject();
                 in.close();
             } catch (IOException | ClassNotFoundException e) {
-                // e.printStackTrace();
+                LOGGER.warn(e.getMessage());
+                throw e;
             }
         }
         return locale;
     }
 
     @Override
-    public void save(final Locale locale, final Integer userAccountId) {
+    public void save(final Locale locale, final Integer userAccountId) throws IOException {
         IUnstructuredObject entity = dao.createEntity();
         List<IUnstructuredObject> listEntity = dao.find(getLocaleFilter(userAccountId));
         if (listEntity.size() != 0) {
@@ -58,7 +59,11 @@ public class LocaleServiceImpl implements ILocaleService {
         }
         Date modifiedOn = new Date();
         entity.setUpdated(modifiedOn);
-        applyEntity(locale, userAccountId, entity);
+        try {
+            applyEntity(locale, userAccountId, entity);
+        } catch (IOException e) {
+            throw e;
+        }
         if (entity.getId() == null) {
             entity.setCreated(modifiedOn);
             LOGGER.info("new saved locale {} for userAccount: {}", locale, userAccountId);
@@ -78,7 +83,7 @@ public class LocaleServiceImpl implements ILocaleService {
     }
 
     private IUnstructuredObject applyEntity(final Locale locale, final Integer userAccountId,
-            final IUnstructuredObject entity) {
+            final IUnstructuredObject entity) throws IOException {
         entity.setName("locale");
         final IUserAccount userAccount = userAccountService.createEntity();
         userAccount.setId(userAccountId);
@@ -90,7 +95,8 @@ public class LocaleServiceImpl implements ILocaleService {
             entity.setContent(bos.toByteArray());
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn(e.getMessage());
+            throw e;
         }
         return entity;
     }
