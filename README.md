@@ -1,16 +1,21 @@
 ##Technologies Used
 
 - Spring MVC
-- Hibernate
+- JPA/Hibernate
 - Maven
 - Postgres
-- Apache Tiles
-- Apache Commons
-- JSTL
 - Google ReCaptcha
 - Google Drive API
 - Java Mail Api
 - JDCB
+- Apache Tiles
+- Apache Commons
+- Apache Tomcat
+- Jetty
+- JSTL
 - Hibernate Validation
 - Hibernate Search
 - Spring Security
+- log4j
+- junit test
+- Mock
