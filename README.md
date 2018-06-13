@@ -7,7 +7,7 @@
 - Google ReCaptcha
 - Google Drive API
 - Java Mail Api
-- JDCB
+- JDBC
 - Apache Tiles
 - Apache Commons
 - Apache Tomcat
