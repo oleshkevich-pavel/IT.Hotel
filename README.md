@@ -1,5 +1,21 @@
 ##Technologies Used
 
+- Spring MVC
+- Apache Tiles
+- JSTL
+- Boostrap
+- jQuery
+- Facebook API
+- Google API
+- MySQL
+- JDCB connection pools
+- Hibernate Validation
+- Maven Repository
+- JSON
+- Javax.Mail - SMTP
+- Apache Commons
+
+
 Spring MVC
 Hibernate
 Maven
