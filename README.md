@@ -2,20 +2,20 @@
 
 - Spring MVC
 - JPA/Hibernate
+- JDBC
 - Maven
 - Postgres
-- Google ReCaptcha
-- Google Drive API
 - Java Mail Api
-- JDBC
+- Google Drive Java API
+- Google ReCaptcha
+- Spring Security
+- Hibernate Validation
+- Hibernate Search
 - Apache Tiles
 - Apache Commons
 - Apache Tomcat
 - Jetty
 - JSTL
-- Hibernate Validation
-- Hibernate Search
-- Spring Security
 - log4j
 - junit test
 - Mock
